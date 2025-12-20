@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  run:
+    desc: Run the app
+    deps: [build]
+    cmds:
+      - ./build/aoc25
+
+  build:
+    desc: Build the app
+    deps: [prepare-build]
+    cmds:
+      - cmake --build build
+    sources:
+      - src/**/*.h
+      - src/**/*.c
+    generates:
+      - build/aoc25
+
+  prepare-build:
+    desc: Prepare the build system
+    cmds:
+      - cmake -B build
+    sources:
+      - CMakeLists.txt
+    generates:
+      - build/**
+      - exclude: build/aoc25

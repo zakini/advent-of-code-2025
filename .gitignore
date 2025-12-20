@@ -1,0 +1,5 @@
+.task
+build
+.cache
+
+.DS_Store
