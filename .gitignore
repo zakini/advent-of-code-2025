@@ -1,5 +1,8 @@
-.task
-build
-.cache
-
 .DS_Store
+
+.cache
+.task
+
+bin
+build
+CMakeUserPresets.json

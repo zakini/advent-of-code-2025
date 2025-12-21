@@ -3,29 +3,39 @@
 version: "3"
 
 tasks:
-  run:
-    desc: Run the app
-    deps: [build]
-    cmds:
-      - ./build/aoc25
+  install:
+    desc: Install dependencies and set up build system
+    cmd: conan install --output-folder build/conan
+    sources:
+      - conanfile.txt
+    generates:
+      - build/conan/**
+      - CMakeUserPresets.json
+
+  prepare-build:
+    desc: Prepare the build system
+    deps: [install]
+    cmd: source build/conan/conanbuild.sh \
+      && cmake -B build/cmake -DCMAKE_TOOLCHAIN_FILE=build/conan/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - CMakeLists.txt
+    generates:
+      - build/cmake/**
+      - exclude: build/cmake/CMakeFiles/aoc25.dir/src/**
 
   build:
     desc: Build the app
     deps: [prepare-build]
-    cmds:
-      - cmake --build build
+    cmd: source build/conan/conanbuild.sh \
+      && cmake --build build/cmake
     sources:
       - src/**/*.h
       - src/**/*.c
     generates:
-      - build/aoc25
+      - bin/aoc25
 
-  prepare-build:
-    desc: Prepare the build system
+  run:
+    desc: Run the app
+    deps: [build]
     cmds:
-      - cmake -B build
-    sources:
-      - CMakeLists.txt
-    generates:
-      - build/**
-      - exclude: build/aoc25
+      - ./bin/aoc25
