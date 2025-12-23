@@ -13,6 +13,8 @@ target_sources(${PROJECT_NAME}
         src/day1.c
 )
 
+set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
+
 # Tests
 find_package(cunit REQUIRED)
 
@@ -27,6 +29,8 @@ target_sources(${PROJECT_NAME}test
         src/day1.h
         src/day1.c
 )
+
+set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
 
 # TODO re-add this if we end up using more than just cunit and want to
 # coordinate them with ctest
