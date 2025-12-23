@@ -16,9 +16,9 @@ target_sources(${PROJECT_NAME}
 # Tests
 find_package(cunit REQUIRED)
 
-add_executable(${PROJECT_NAME}Test)
-target_link_libraries(${PROJECT_NAME}Test cunit::cunit)
-target_sources(${PROJECT_NAME}Test
+add_executable(${PROJECT_NAME}test)
+target_link_libraries(${PROJECT_NAME}test cunit::cunit)
+target_sources(${PROJECT_NAME}test
     PRIVATE
         test/main.c
         test/day1.h
@@ -33,7 +33,7 @@ target_sources(${PROJECT_NAME}Test
 
 # add_test(
 #     NAME CUnitTests
-#     COMMAND ${PROJECT_NAME}Test
+#     COMMAND ${PROJECT_NAME}test
 # )
 
 # option(BUILD_TESTING "Enable testing and build tests" ON)
