@@ -1,6 +1,11 @@
 #include <stdio.h>
+#include "day1.h"
 
 int main() {
-    printf("hello world\n");
+    int result;
+
+    result = day1();
+    printf("Result: %d\n", result);
+
     return 0;
 }
