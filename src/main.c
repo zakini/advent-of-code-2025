@@ -2,10 +2,7 @@
 #include "day1.h"
 
 int main() {
-    int result;
-
-    result = day1();
-    printf("Result: %d\n", result);
+    printf("Day 1\n=====\nPart 1: %d\n", day1("data/day1/part1.txt"));
 
     return 0;
 }

@@ -6,3 +6,5 @@
 bin
 build
 CMakeUserPresets.json
+
+data/**/part*.txt

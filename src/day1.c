@@ -5,7 +5,7 @@
 #define INITIAL_DIAL_POSITION 50;
 #define NUM_DIAL_POSITIONS 100;
 
-int day1() {
+int day1(char inputFilePath[]) {
     FILE* file = NULL;
     char* line = NULL;
     size_t buffer_capacity = 0;
@@ -15,10 +15,9 @@ int day1() {
     int dial_position = INITIAL_DIAL_POSITION;
     int zero_position_count = 0;
 
-    // TODO get absolute path to this file
-    file = fopen("data/day1/example1.txt", "r");
+    file = fopen(inputFilePath, "r");
     if (file == NULL) {
-        fprintf(stderr, "Failed to open data/day1/example1.txt");
+        fprintf(stderr, "Failed to open %s", inputFilePath);
         exit(EXIT_FAILURE);
     }
 

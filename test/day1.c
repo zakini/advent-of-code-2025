@@ -18,5 +18,5 @@ int day1CreateTestSuite() {
 }
 
 void exampleTest() {
-    CU_ASSERT_EQUAL(3, day1())
+    CU_ASSERT_EQUAL(3, day1("data/day1/example1.txt"))
 }
