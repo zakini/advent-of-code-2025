@@ -5,37 +5,48 @@ version: "3"
 tasks:
   install:
     desc: Install dependencies and set up build system
-    cmd: conan install --output-folder build/conan
+    cmds:
+      - conan install --output-folder build --build missing
+      - source build/conanbuild.sh \
+          && cmake -B build -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     sources:
       - conanfile.txt
     generates:
-      - build/conan/**
+      - build/**
       - CMakeUserPresets.json
-
-  prepare-build:
-    desc: Prepare the build system
-    deps: [install]
-    cmd: source build/conan/conanbuild.sh \
-      && cmake -B build/cmake -DCMAKE_TOOLCHAIN_FILE=build/conan/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-    sources:
-      - CMakeLists.txt
-    generates:
-      - build/cmake/**
-      - exclude: build/cmake/CMakeFiles/aoc25.dir/src/**
+      - exclude: build/CMakeFiles/aoc25.dir/src/**
+      - exclude: build/CMakeFiles/aoc25Test.dir/src/**
 
   build:
     desc: Build the app
-    deps: [prepare-build]
-    cmd: source build/conan/conanbuild.sh \
-      && cmake --build build/cmake
+    deps: [install]
+    cmd: source build/conanbuild.sh \
+      && cmake --build build
     sources:
+      - conanfile.txt
+      - CMakeLists.txt
       - src/**/*.h
       - src/**/*.c
+      - test/**/*.h
+      - test/**/*.c
     generates:
       - bin/aoc25
+      - bin/aoc25Test
+
+  test:
+    desc: Test the app
+    deps: [build]
+    cmd: ./bin/aoc25Test
 
   run:
     desc: Run the app
     deps: [build]
+    cmd: ./bin/aoc25
+
+  cleanup:
+    desc: Remove all build related files
+    prompt: This will delete all build related files. Are you sure?
     cmds:
-      - ./bin/aoc25
+      - rm -rf bin
+      - rm -rf build
+      - rm -f CMakeUserPresets.json

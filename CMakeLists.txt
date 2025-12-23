@@ -1,10 +1,42 @@
 cmake_minimum_required(VERSION 4.2.1)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-project(AOC25 C)
+project(aoc25 C)
 
-add_executable(aoc25)
-target_sources(aoc25
+# Main
+add_executable(${PROJECT_NAME})
+target_sources(${PROJECT_NAME}
     PRIVATE
         src/main.c
+        src/day1.h
+        src/day1.c
 )
+
+# Tests
+find_package(cunit REQUIRED)
+
+add_executable(${PROJECT_NAME}Test)
+target_link_libraries(${PROJECT_NAME}Test cunit::cunit)
+target_sources(${PROJECT_NAME}Test
+    PRIVATE
+        test/main.c
+        test/day1.h
+        test/day1.c
+
+        src/day1.h
+        src/day1.c
+)
+
+# TODO re-add this if we end up using more than just cunit and want to
+# coordinate them with ctest
+
+# add_test(
+#     NAME CUnitTests
+#     COMMAND ${PROJECT_NAME}Test
+# )
+
+# option(BUILD_TESTING "Enable testing and build tests" ON)
+# if(BUILD_TESTING)
+#     enable_testing()
+# endif()

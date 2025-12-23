@@ -1,6 +1,9 @@
 [tool_requires]
 cmake/4.2.1
 
+[test_requires]
+cunit/2.1-3
+
 [generators]
 CMakeDeps
 CMakeToolchain
