@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 4.2.1)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 project(aoc25 C)
 
-# Main
+### Main ###
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
     PRIVATE
@@ -15,7 +14,7 @@ target_sources(${PROJECT_NAME}
 
 set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
 
-# Tests
+### Tests ###
 find_package(cunit REQUIRED)
 
 add_executable(${PROJECT_NAME}test)
@@ -44,3 +43,16 @@ set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
 # if(BUILD_TESTING)
 #     enable_testing()
 # endif()
+
+### Installation ###
+install(TARGETS ${PROJECT_NAME}
+    CONFIGURATIONS Release
+    RUNTIME
+        DESTINATION bin/Release
+)
+
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}test
+    CONFIGURATIONS Debug
+    RUNTIME
+        DESTINATION bin/Debug
+)

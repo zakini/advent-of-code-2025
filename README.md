@@ -19,3 +19,4 @@ Run `task test`
 
 ## References
 - https://blog.quentinra.dev/tools-and-frameworks/others/testing/tools/c/cunit/index.md
+- https://docs.conan.io/2/examples/tools/cmake/cmake_toolchain/build_project_cmake_presets.html

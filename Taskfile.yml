@@ -4,44 +4,99 @@ version: "3"
 
 tasks:
   install:
-    desc: Install dependencies and set up build system
-    cmds:
-      - conan install --output-folder build --build missing
-      - source build/conanbuild.sh \
-          && cmake -B build -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    desc: Install dependencies for release build
+    cmd: conan install --build missing
     sources:
       - conanfile.txt
     generates:
-      - build/**
+      - build/Release/generators/**
       - CMakeUserPresets.json
-      - exclude: build/CMakeFiles/aoc25.dir/src/**
-      - exclude: build/CMakeFiles/aoc25Test.dir/src/**
+
+  install-debug:
+    desc: Install dependencies for debug build
+    cmd: conan install --build missing --settings build_type=Debug
+    sources:
+      - conanfile.txt
+    generates:
+      - build/Debug/generators/**
+      - CMakeUserPresets.json
+
+  prepare-build:
+    desc: Set up the build system for a release build
+    deps: [install]
+    cmd: source build/Release/generators/conanbuild.sh \
+            && cmake --preset conan-release
+    sources:
+      - conanfile.txt
+      - CMakeUserPresets.json
+    generates:
+      - build/Release/**
+      - exclude: build/Release/generators/**
+      - exclude: build/Release/aoc25
+      - exclude: build/Release/aoc25test
+
+  prepare-build-debug:
+    desc: Set up the build system for a debug build
+    deps: [install-debug]
+    cmd: source build/Debug/generators/conanbuild.sh \
+            && cmake --preset conan-debug
+    sources:
+      - conanfile.txt
+      - CMakeUserPresets.json
+    generates:
+      - build/Debug/**
+      - exclude: build/Debug/generators/**
+      - exclude: build/Debug/aoc25
+      - exclude: build/Debug/aoc25test
 
   build:
-    desc: Build the app
-    deps: [install]
-    cmd: source build/conanbuild.sh \
-      && cmake --build build
+    desc: Create a release build of the app
+    deps: [prepare-build]
+    cmd: source build/Release/generators/conanbuild.sh \
+            && cmake --build --preset conan-release \
+            && cmake --install build/Release --prefix .
     sources:
       - conanfile.txt
       - CMakeLists.txt
+      - CMakeUserPresets.json
       - src/**/*.h
       - src/**/*.c
       - test/**/*.h
       - test/**/*.c
     generates:
-      - bin/aoc25
-      - bin/aoc25Test
+      - bin/Release/**
+
+  build-debug:
+    desc: Create a debug build of the app
+    deps: [prepare-build-debug]
+    cmd: source build/Debug/generators/conanbuild.sh \
+            && cmake --build --preset conan-debug \
+            && cmake --install build/Debug --prefix .
+    sources:
+      - conanfile.txt
+      - CMakeLists.txt
+      - CMakeUserPresets.json
+      - src/**/*.h
+      - src/**/*.c
+      - test/**/*.h
+      - test/**/*.c
+    generates:
+      - bin/Debug/**
 
   test:
     desc: Test the app
-    deps: [build]
-    cmd: ./bin/aoc25Test
+    deps: [build-debug]
+    cmd: ./bin/Debug/aoc25Test
 
   run:
-    desc: Run the app
+    desc: Run the release build of the app
     deps: [build]
-    cmd: ./bin/aoc25
+    cmd: ./bin/Release/aoc25
+
+  run-debug:
+    desc: Run the debug build of the app
+    deps: [build-debug]
+    cmd: ./bin/Debug/aoc25
 
   cleanup:
     desc: Remove all build related files
