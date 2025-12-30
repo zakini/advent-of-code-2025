@@ -105,3 +105,9 @@ tasks:
       - rm -rf bin
       - rm -rf build
       - rm -f CMakeUserPresets.json
+
+  format:
+    desc: Format all code
+    cmds:
+      - find src -name '*.h' -or -name '*.c' | xargs clang-format -i
+      - find test -name '*.h' -or -name '*.c' | xargs clang-format -i
