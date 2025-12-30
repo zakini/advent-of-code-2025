@@ -17,6 +17,9 @@ target_sources(${PROJECT_NAME}
 
 set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
 
+# TODO modify this based on the compiler frontend
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
+
 ### Tests ###
 find_package(cunit REQUIRED)
 
@@ -38,6 +41,9 @@ target_sources(${PROJECT_NAME}test
 )
 
 set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
+
+# TODO modify this based on the compiler frontend
+target_compile_options(${PROJECT_NAME}test PRIVATE -Wall)
 
 # TODO re-add this if we end up using more than just cunit and want to
 # coordinate them with ctest
