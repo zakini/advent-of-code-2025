@@ -10,6 +10,9 @@ target_sources(${PROJECT_NAME}
         src/main.c
         src/day1.h
         src/day1.c
+
+        src/utils.h
+        src/utils.c
 )
 
 set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
@@ -25,8 +28,13 @@ target_sources(${PROJECT_NAME}test
         test/day1.h
         test/day1.c
 
+        test/CUnit.h
+
         src/day1.h
         src/day1.c
+
+        src/utils.h
+        src/utils.c
 )
 
 set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)

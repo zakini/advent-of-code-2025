@@ -1,4 +1,3 @@
-#include <CUnit/TestRun.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <CUnit/CUnit.h>
