@@ -5,19 +5,21 @@ version: "3"
 tasks:
   install:
     desc: Install dependencies for release build
-    cmd: conan install --build missing
+    cmd: conan install --build missing --lockfile conan.lock --lockfile-partial --lockfile-out conan.lock
     sources:
       - conanfile.txt
     generates:
+      - conan.lock
       - build/Release/generators/**
       - CMakeUserPresets.json
 
   install-debug:
     desc: Install dependencies for debug build
-    cmd: conan install --build missing --settings build_type=Debug
+    cmd: conan install --build missing --settings build_type=Debug --lockfile conan.lock --lockfile-partial --lockfile-out conan.lock
     sources:
       - conanfile.txt
     generates:
+      - conan.lock
       - build/Debug/generators/**
       - CMakeUserPresets.json
 
