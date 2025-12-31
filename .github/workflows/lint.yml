@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Set up LLVM
+        uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: 20
+
       - name: Set up Conan
         uses: conan-io/setup-conan@v1
 
