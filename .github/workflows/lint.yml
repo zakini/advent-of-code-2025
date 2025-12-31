@@ -21,6 +21,11 @@ jobs:
 
       - name: Build
         run: |
+          ls -al
+          ls -al build
+          ls -al build/Release
+          ls -al build/Release/generators
+
           source build/Release/generators/conanbuild.sh
           cmake --preset conan-release
           cmake --build --preset conan-release
