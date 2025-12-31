@@ -8,6 +8,7 @@ jobs:
   lint:
     name: Lint
     runs-on: macos-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -17,7 +18,7 @@ jobs:
 
       - name: Install Conan dependencies
         run: |
-          conan install --build missing --settings build_type=Debug --lockfile conan.lock
+          conan install --build missing --settings build_type=Release --lockfile conan.lock
 
       - name: Build
         run: |
