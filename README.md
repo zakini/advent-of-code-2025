@@ -6,6 +6,7 @@ This year, I'm trying [C](https://www.c-language.org/) (C23)
 ## Set Up
 Install these tools:
 - [task](https://taskfile.dev/docs/installation)
+- LLVM (`brew install llvm`)
 - [conan](https://docs.conan.io/2/installation.html)
 
 ## Running
@@ -16,6 +17,16 @@ There are also individual tasks that can be run separately if you need to. Run `
 
 ### Running tests
 Run `task test`
+
+Tests are written using [CUnit](https://cunit.sourceforge.net/)
+
+## Linting and Formatting
+Run `task lint` to lint code  
+Run `task lint-fix` to automatically fix lint issues (where possible)
+Run `task format` to format code
+
+Linting is handled by [`clang-tidy`](https://releases.llvm.org/21.1.0/tools/clang/tools/extra/docs/clang-tidy/index.html)  
+Formatting is handled by [`clang-format`](https://releases.llvm.org/21.1.0/tools/clang/docs/ClangFormat.html)
 
 ## References
 - https://blog.quentinra.dev/tools-and-frameworks/others/testing/tools/c/cunit/index.md
