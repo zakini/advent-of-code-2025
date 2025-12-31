@@ -1,5 +1,5 @@
-#ifndef DAY1_TEST_H
-#define DAY1_TEST_H
+#ifndef AOC25_TEST_DAY1_H
+#define AOC25_TEST_DAY1_H
 
 int day1CreateTestSuite();
 
