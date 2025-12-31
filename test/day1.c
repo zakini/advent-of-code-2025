@@ -1,7 +1,10 @@
 #include "day1.h"
 #include "../src/day1.h"
 #include "CUnit.h"
+// NOLINTNEXTLINE(misc-include-cleaner) we're not using this directly, but not including it causes compiler errors related to CUnit types not being defined
 #include <CUnit/CUnit.h>
+#include <CUnit/TestDB.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -169,8 +172,9 @@ int day1CreateTestSuite() {
   CU_pSuite suite = NULL;
 
   suite = CU_add_suite("Day 1", NULL, NULL);
-  if (suite == NULL)
+  if (suite == NULL) {
     return EXIT_FAILURE;
+  }
 
   CU_ADD_TEST(suite, it_gets_correct_answer_for_part_1_with_example_data);
   CU_ADD_TEST(suite, it_gets_correct_answer_for_part_2_with_example_data);

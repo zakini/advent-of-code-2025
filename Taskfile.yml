@@ -23,10 +23,6 @@ tasks:
       - build/Debug/generators/**
       - CMakeUserPresets.json
 
-  install-ci:
-    desc: Install dependencies for release build in CI
-    cmd: conan install --build missing --settings build_type=Debug --lockfile conan.lock
-
   prepare-build:
     desc: Set up the build system for a release build
     deps: [install]
@@ -119,6 +115,12 @@ tasks:
       - find src -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
       - find test -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release
       - find test -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
+
+  lint-fix:
+    desc: Apply all available automatic fixes for linting errors
+    cmds:
+      - find src -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release --fix --fix-errors
+      - find test -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release --fix --fix-errors
 
   format:
     desc: Format all code
