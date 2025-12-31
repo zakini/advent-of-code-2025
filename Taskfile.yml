@@ -23,10 +23,6 @@ tasks:
       - build/Debug/generators/**
       - CMakeUserPresets.json
 
-  install-ci:
-    desc: Install dependencies for release build in CI
-    cmd: conan install --build missing --settings build_type=Debug --lockfile conan.lock
-
   prepare-build:
     desc: Set up the build system for a release build
     deps: [install]
