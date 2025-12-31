@@ -1,20 +1,45 @@
 name: Lint
 
 on:
-  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-      - name: Set up Task
-        uses: illbjorn/setup-task@0.1.0
+
+      - name: Set up LLVM
+        uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: 20
+
       - name: Set up Conan
         uses: conan-io/setup-conan@v1
+
       - name: Install Conan dependencies
-        run: task install-ci
+        run: |
+          conan install --build missing --settings build_type=Release --lockfile conan.lock
+
+      - name: Build
+        run: |
+          ls -al
+          ls -al build
+          ls -al build/Release
+          ls -al build/Release/generators
+
+          source build/Release/generators/conanbuild.sh
+          cmake --preset conan-release
+          cmake --build --preset conan-release
+          cmake --install build/Release --prefix .
+
       - name: Lint
-        run: task lint
+        run: |
+          find src -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release
+          find src -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
+          find test -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release
+          find test -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror

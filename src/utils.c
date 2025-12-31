@@ -8,8 +8,9 @@ char *trim(char input[]) {
     input++;
   }
 
-  if (input[0] == 0)
+  if (input[0] == 0) {
     return input;
+  }
 
   end = input + strlen(input) - 1;
   while (end > input && isspace(*end)) {

@@ -1,5 +1,5 @@
-#ifndef TEST_CUNIT_H
-#define TEST_CUNIT_H
+#ifndef AOC25_TEST_CUNIT_H
+#define AOC25_TEST_CUNIT_H
 
 #define AOC_CU_ASSERT_EQUAL(actual, expected, format)                          \
   {                                                                            \
