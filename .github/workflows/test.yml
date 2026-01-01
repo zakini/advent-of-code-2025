@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up LLVM
+        uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: 20
+
+      - name: Set up Conan
+        uses: conan-io/setup-conan@v1
+
+      - name: Install Conan dependencies
+        run: |
+          conan install --build missing --settings build_type=Debug --lockfile conan.lock
+
+      - name: Build
+        run: |
+          source build/Debug/generators/conanbuild.sh
+          cmake --preset conan-debug
+          cmake --build --preset conan-debug
+          cmake --install build/Debug --prefix .
+
+      - name: Test
+        run: |
+          ./bin/Debug/aoc25Test
