@@ -16,6 +16,8 @@ jobs:
       - name: Set up LLVM
         uses: KyleMayes/install-llvm-action@v2
         with:
+          # NOTE version 21 is not available for macOS using this action
+          # See: https://github.com/KyleMayes/install-llvm-action/issues/92#issuecomment-3385731133
           version: 20
 
       - name: Set up Conan
