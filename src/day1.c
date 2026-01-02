@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 enum { INITIAL_DIAL_POSITION = 50, NUM_DIAL_POSITIONS = 100 };
 enum { DECIMAL_BASE = 10 };
@@ -14,7 +15,9 @@ struct DialZeroPositionCounts {
   int passed;
 };
 
-int parseLine(const char *line, unsigned int line_number) {
+static int parseLine(const char *line, unsigned int line_number) {
+  assert(strlen(line) > 1);
+
   if (line[0] == 'L') {
     return -(int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
   }
@@ -24,14 +27,14 @@ int parseLine(const char *line, unsigned int line_number) {
 
   // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
   fprintf(stderr,
-          "Invalid direction on line %d: expected L or R, got %c | full "
+          "Invalid direction on line %u: expected L or R, got %c | full "
           "line: %s\n",
           line_number, line[0], line);
   exit(EXIT_FAILURE);
 }
 
-void rotateDialTowardsZero(int *dial_position, int *turn_amount,
-                           struct DialZeroPositionCounts *result) {
+static void rotateDialTowardsZero(int *dial_position, int *turn_amount,
+                                  struct DialZeroPositionCounts *result) {
   int temp = 0;
 
   if (*dial_position != 0) {
@@ -56,9 +59,9 @@ void rotateDialTowardsZero(int *dial_position, int *turn_amount,
   }
 }
 
-// NOLINTNEXTLINE(misc-unused-parameters,bugprone-easily-swappable-parameters) it... _is_ used?? and cba dealing with making these int pointers opaque
-void applyFullRotations(int *dial_position, int *turn_amount,
-                        struct DialZeroPositionCounts *result) {
+// NOLINTNEXTLINE(clang-diagnostic-unused-parameter,misc-unused-parameters,bugprone-easily-swappable-parameters) it... _is_ used?? and cba dealing with making these int pointers opaque
+static void applyFullRotations(int *dial_position, int *turn_amount,
+                               struct DialZeroPositionCounts *result) {
   if (abs(*turn_amount) >= NUM_DIAL_POSITIONS) {
     assert((*dial_position) == 0);
 
@@ -74,7 +77,7 @@ void applyFullRotations(int *dial_position, int *turn_amount,
   }
 }
 
-struct DialZeroPositionCounts day1(char inputFilePath[]) {
+static struct DialZeroPositionCounts day1(char inputFilePath[]) {
   FILE *file = NULL;
   char line[MAX_INPUT_FILE_LINE_LENGTH];
   unsigned int line_number = 0;
