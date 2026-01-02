@@ -8,15 +8,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void it_gets_correct_answer_for_part_1_with_example_data() {
+static void it_gets_correct_answer_for_part_1_with_example_data(void) {
   AOC_CU_ASSERT_EQUAL(day1Part1("data/day1/example1.txt"), 3, "%d");
 }
 
-void it_gets_correct_answer_for_part_2_with_example_data() {
+static void it_gets_correct_answer_for_part_2_with_example_data(void) {
   AOC_CU_ASSERT_EQUAL(day1Part2("data/day1/example1.txt"), 6, "%d");
 }
 
-void it_can_turn_right_a_small_amount() {
+static void it_can_turn_right_a_small_amount(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_right_a_small_amount.txt"), 0,
       "%d");
@@ -25,14 +25,14 @@ void it_can_turn_right_a_small_amount() {
       "%d");
 }
 
-void it_can_turn_left_a_small_amount() {
+static void it_can_turn_left_a_small_amount(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_left_a_small_amount.txt"), 0, "%d");
   AOC_CU_ASSERT_EQUAL(
       day1Part2("test/data/day1/it_can_turn_left_a_small_amount.txt"), 0, "%d");
 }
 
-void it_can_turn_right_and_land_on_zero() {
+static void it_can_turn_right_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_right_and_land_on_zero.txt"), 1,
       "%d");
@@ -41,7 +41,7 @@ void it_can_turn_right_and_land_on_zero() {
       "%d");
 }
 
-void it_can_turn_left_and_land_on_zero() {
+static void it_can_turn_left_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_left_and_land_on_zero.txt"), 1,
       "%d");
@@ -50,21 +50,21 @@ void it_can_turn_left_and_land_on_zero() {
       "%d");
 }
 
-void it_can_turn_right_and_pass_zero() {
+static void it_can_turn_right_and_pass_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_right_and_pass_zero.txt"), 0, "%d");
   AOC_CU_ASSERT_EQUAL(
       day1Part2("test/data/day1/it_can_turn_right_and_pass_zero.txt"), 1, "%d");
 }
 
-void it_can_turn_left_and_pass_zero() {
+static void it_can_turn_left_and_pass_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_left_and_pass_zero.txt"), 0, "%d");
   AOC_CU_ASSERT_EQUAL(
       day1Part2("test/data/day1/it_can_turn_left_and_pass_zero.txt"), 1, "%d");
 }
 
-void it_can_turn_right_from_zero_a_small_amount() {
+static void it_can_turn_right_from_zero_a_small_amount(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_right_from_zero_a_small_amount.txt"),
@@ -75,7 +75,7 @@ void it_can_turn_right_from_zero_a_small_amount() {
       1, "%d");
 }
 
-void it_can_turn_left_from_zero_a_small_amount() {
+static void it_can_turn_left_from_zero_a_small_amount(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_left_from_zero_a_small_amount.txt"),
       1, "%d");
@@ -84,7 +84,7 @@ void it_can_turn_left_from_zero_a_small_amount() {
       1, "%d");
 }
 
-void it_can_turn_right_from_zero_and_land_on_zero() {
+static void it_can_turn_right_from_zero_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_right_from_zero_and_land_on_zero.txt"),
@@ -95,7 +95,7 @@ void it_can_turn_right_from_zero_and_land_on_zero() {
       2, "%d");
 }
 
-void it_can_turn_left_from_zero_and_land_on_zero() {
+static void it_can_turn_left_from_zero_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_left_from_zero_and_land_on_zero.txt"),
@@ -106,7 +106,7 @@ void it_can_turn_left_from_zero_and_land_on_zero() {
       2, "%d");
 }
 
-void it_can_turn_right_from_zero_and_pass_zero() {
+static void it_can_turn_right_from_zero_and_pass_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_right_from_zero_and_pass_zero.txt"),
       1, "%d");
@@ -115,7 +115,7 @@ void it_can_turn_right_from_zero_and_pass_zero() {
       2, "%d");
 }
 
-void it_can_turn_left_from_zero_and_pass_zero() {
+static void it_can_turn_left_from_zero_and_pass_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1("test/data/day1/it_can_turn_left_from_zero_and_pass_zero.txt"),
       1, "%d");
@@ -124,7 +124,7 @@ void it_can_turn_left_from_zero_and_pass_zero() {
       2, "%d");
 }
 
-void it_can_turn_right_by_over_100_and_land_on_zero() {
+static void it_can_turn_right_by_over_100_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_right_by_over_100_and_land_on_zero.txt"),
@@ -135,7 +135,7 @@ void it_can_turn_right_by_over_100_and_land_on_zero() {
       3, "%d");
 }
 
-void it_can_turn_left_by_over_100_and_land_on_zero() {
+static void it_can_turn_left_by_over_100_and_land_on_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_left_by_over_100_and_land_on_zero.txt"),
@@ -146,7 +146,7 @@ void it_can_turn_left_by_over_100_and_land_on_zero() {
       3, "%d");
 }
 
-void it_can_turn_right_by_over_100_and_miss_zero() {
+static void it_can_turn_right_by_over_100_and_miss_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_right_by_over_100_and_miss_zero.txt"),
@@ -157,7 +157,7 @@ void it_can_turn_right_by_over_100_and_miss_zero() {
       2, "%d");
 }
 
-void it_can_turn_left_by_over_100_and_miss_zero() {
+static void it_can_turn_left_by_over_100_and_miss_zero(void) {
   AOC_CU_ASSERT_EQUAL(
       day1Part1(
           "test/data/day1/it_can_turn_left_by_over_100_and_miss_zero.txt"),
@@ -168,7 +168,7 @@ void it_can_turn_left_by_over_100_and_miss_zero() {
       2, "%d");
 }
 
-int day1CreateTestSuite() {
+int day1CreateTestSuite(void) {
   CU_pSuite suite = NULL;
 
   suite = CU_add_suite("Day 1", NULL, NULL);

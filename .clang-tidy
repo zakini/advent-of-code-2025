@@ -1,8 +1,24 @@
 # yaml-language-server: $schema=https://json.schemastore.org/clang-tidy.json
 
 # TODO enable concurrency-* if we do thread stuff
-# Ignore DeprecatedOrUnsafeBufferHandling is apparently everyone hates the 'safer' _s function variants and they're not well supported
-# Ignore llvm-header-guard since it changes defines to be based on the absolute file path
-Checks: 'bugprone-*,cert-*,clang-analyzer-*,llvm-*,misc-*,modernize-*,performance-*,portability-*,readability-*,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,-llvm-header-guard'
+Checks:
+  - 'bugprone-*'
+  - 'cert-*'
+
+  - 'clang-analyzer-*'
+  # This pushes us to use the 'safer' _s function variants, but everyone seems to hate them and they're not well supported, so ignore this check
+  - '-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
+  # This just doesn't seem to work
+  - '-clang-diagnostic-unused-macros'
+
+  - 'llvm-*'
+  # Ignore llvm-header-guard since it changes defines to be based on the absolute file path
+  - '-llvm-header-guard'
+
+  - 'misc-*'
+  - 'modernize-*'
+  - 'performance-*'
+  - 'portability-*'
+  - 'readability-*'
 WarningsAsErrors: '*'
 FormatStyle: file
