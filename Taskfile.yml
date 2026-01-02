@@ -89,8 +89,6 @@ tasks:
     desc: Test the app
     deps: [build-debug]
     cmd: ./bin/Debug/aoc25Test
-    sources:
-      - test/**
 
   run:
     desc: Run the release build of the app
