@@ -9,11 +9,11 @@
 #include <stdlib.h>
 
 static void it_gets_correct_answer_for_part_1_with_example_data(void) {
-  AOC_CU_ASSERT_EQUAL(day1Part1("data/day1/example1.txt"), 3, "%d");
+  AOC_CU_ASSERT_EQUAL(day1Part1("data/day1/example.txt"), 3, "%d");
 }
 
 static void it_gets_correct_answer_for_part_2_with_example_data(void) {
-  AOC_CU_ASSERT_EQUAL(day1Part2("data/day1/example1.txt"), 6, "%d");
+  AOC_CU_ASSERT_EQUAL(day1Part2("data/day1/example.txt"), 6, "%d");
 }
 
 static void it_can_turn_right_a_small_amount(void) {
