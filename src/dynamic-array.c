@@ -26,7 +26,8 @@ static void DA_expand(struct DynamicArray *array) {
   assert(array->occupied <= array->allocated);
 
   if (array->occupied >= array->allocated) {
-    temp = (long *)realloc(array->data, (array->allocated + ALLOC_CHUNK_SIZE) * sizeof(long));
+    temp = (long *)realloc(array->data, (array->allocated + ALLOC_CHUNK_SIZE) *
+                                            sizeof(long));
     exit_if(temp == NULL, "Failed to expand dynamic array");
     array->data = temp;
     array->allocated += ALLOC_CHUNK_SIZE;

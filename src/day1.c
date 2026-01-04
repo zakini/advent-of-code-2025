@@ -15,7 +15,8 @@ struct DialZeroPositionCounts {
 };
 
 static int parseLine(const char *line, unsigned int line_number) {
-  exit_if(strlen(line) < 2, "Line %u is too short | full line: %s\n", line_number, line);
+  exit_if(strlen(line) < 2, "Line %u is too short | full line: %s\n",
+          line_number, line);
 
   if (line[0] == 'L') {
     return -(int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
@@ -24,7 +25,8 @@ static int parseLine(const char *line, unsigned int line_number) {
     return (int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
   }
 
-  exit_if(true, "Invalid direction on line %u: expected L or R, got %c | full "
+  exit_if(true,
+          "Invalid direction on line %u: expected L or R, got %c | full "
           "line: %s\n",
           line_number, line[0], line);
 }

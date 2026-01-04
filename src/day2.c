@@ -18,7 +18,9 @@ static struct Range parseValue(char *value, unsigned int input_number) {
   struct Range range = {0, 0};
   char *next_value = NULL;
 
-  exit_if(strlen(value) > 100, "Value %u is too long to parse | full value: %s\n", input_number, value);
+  exit_if(strlen(value) > 100,
+          "Value %u is too long to parse | full value: %s\n", input_number,
+          value);
   strncpy(full_value, value, min(strlen(value), 100 - 1));
 
   next_value = strtok(value, "-");
