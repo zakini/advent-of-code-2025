@@ -7,8 +7,6 @@
 #include <string.h>
 
 enum { INITIAL_DIAL_POSITION = 50, NUM_DIAL_POSITIONS = 100 };
-enum { DECIMAL_BASE = 10 };
-enum { MAX_INPUT_FILE_LINE_LENGTH = 8 };
 
 struct DialZeroPositionCounts {
   int stoppedOn;
@@ -16,7 +14,12 @@ struct DialZeroPositionCounts {
 };
 
 static int parseLine(const char *line, unsigned int line_number) {
-  assert(strlen(line) > 1);
+  if (strlen(line) < 2) {
+    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
+    fprintf(stderr, "Line %u is too short | full line: %s\n", line_number,
+            line);
+    exit(EXIT_FAILURE);
+  }
 
   if (line[0] == 'L') {
     return -(int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
@@ -79,7 +82,8 @@ static void applyFullRotations(int *dial_position, int *turn_amount,
 
 static struct DialZeroPositionCounts day1(char inputFilePath[]) {
   FILE *file = NULL;
-  char line[MAX_INPUT_FILE_LINE_LENGTH];
+  char *line = NULL;
+  size_t line_capacity = 0;
   unsigned int line_number = 0;
 
   int dial_position = INITIAL_DIAL_POSITION;
@@ -89,11 +93,11 @@ static struct DialZeroPositionCounts day1(char inputFilePath[]) {
   file = fopen(inputFilePath, "r");
   if (file == NULL) {
     // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to open %s", inputFilePath);
+    fprintf(stderr, "Failed to open %s\n", inputFilePath);
     exit(EXIT_FAILURE);
   }
 
-  while (fgets(line, sizeof(line), file) != NULL) {
+  while (getline(&line, &line_capacity, file) != -1) {
     turn_amount = parseLine(line, line_number);
 
     rotateDialTowardsZero(&dial_position, &turn_amount, &result);
@@ -115,9 +119,13 @@ static struct DialZeroPositionCounts day1(char inputFilePath[]) {
     line_number++;
   }
 
+  if (line != NULL) {
+    free(line);
+  }
+
   if (fclose(file) != 0) {
     // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to close file handle");
+    fprintf(stderr, "Failed to close file handle\n");
     exit(EXIT_FAILURE);
   }
 
