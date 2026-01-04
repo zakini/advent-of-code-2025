@@ -1,6 +1,7 @@
 #include "day1.h"
 #include "utils.h"
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,12 +15,7 @@ struct DialZeroPositionCounts {
 };
 
 static int parseLine(const char *line, unsigned int line_number) {
-  if (strlen(line) < 2) {
-    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Line %u is too short | full line: %s\n", line_number,
-            line);
-    exit(EXIT_FAILURE);
-  }
+  exit_if(strlen(line) < 2, "Line %u is too short | full line: %s\n", line_number, line);
 
   if (line[0] == 'L') {
     return -(int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
@@ -28,12 +24,9 @@ static int parseLine(const char *line, unsigned int line_number) {
     return (int)strtol(line + sizeof(char), NULL, DECIMAL_BASE);
   }
 
-  // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-  fprintf(stderr,
-          "Invalid direction on line %u: expected L or R, got %c | full "
+  exit_if(true, "Invalid direction on line %u: expected L or R, got %c | full "
           "line: %s\n",
           line_number, line[0], line);
-  exit(EXIT_FAILURE);
 }
 
 static void rotateDialTowardsZero(int *dial_position, int *turn_amount,
@@ -91,11 +84,7 @@ static struct DialZeroPositionCounts day1(char inputFilePath[]) {
   struct DialZeroPositionCounts result = {0, 0};
 
   file = fopen(inputFilePath, "r");
-  if (file == NULL) {
-    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to open %s\n", inputFilePath);
-    exit(EXIT_FAILURE);
-  }
+  exit_if(file == NULL, "Failed to open %s\n", inputFilePath);
 
   while (getline(&line, &line_capacity, file) != -1) {
     turn_amount = parseLine(line, line_number);
@@ -123,11 +112,7 @@ static struct DialZeroPositionCounts day1(char inputFilePath[]) {
     free(line);
   }
 
-  if (fclose(file) != 0) {
-    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to close file handle\n");
-    exit(EXIT_FAILURE);
-  }
+  exit_if(fclose(file) != 0, "Failed to close file handle\n");
 
   return result;
 }
