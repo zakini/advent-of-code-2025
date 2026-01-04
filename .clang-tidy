@@ -13,6 +13,8 @@ Checks:
   - '-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling'
   # This just doesn't seem to work
   - '-clang-diagnostic-unused-macros'
+  # We're using C23, so we're allowed to omit these
+  - '-clang-diagnostic-variadic-macro-arguments-omitted'
 
   - 'llvm-*'
   # Ignore llvm-header-guard since it changes defines to be based on the absolute file path
