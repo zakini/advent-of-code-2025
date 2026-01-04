@@ -25,7 +25,11 @@ set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
 # Disable unsafe-buffer-usage since it's not clear how to make this warning
 # happy
 target_compile_options(${PROJECT_NAME}
-  PRIVATE -Weverything -Wno-unsafe-buffer-usage
+  PRIVATE
+    -Weverything
+    -Wno-unsafe-buffer-usage
+    -Wno-variadic-macro-arguments-omitted
+    -Wno-unused-macros
 )
 
 ### Tests ###
@@ -60,7 +64,11 @@ set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
 # Disable unsafe-buffer-usage since it's not clear how to make this warning
 # happy
 target_compile_options(${PROJECT_NAME}test
-  PRIVATE -Weverything -Wno-unsafe-buffer-usage
+  PRIVATE
+    -Weverything
+    -Wno-unsafe-buffer-usage
+    -Wno-variadic-macro-arguments-omitted
+    -Wno-unused-macros
 )
 
 # TODO re-add this if we end up using more than just cunit and want to
