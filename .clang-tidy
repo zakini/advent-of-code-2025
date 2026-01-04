@@ -1,5 +1,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/clang-tidy.json
 
+WarningsAsErrors: '*'
+FormatStyle: file
+
 # TODO enable concurrency-* if we do thread stuff
 Checks:
   - 'bugprone-*'
@@ -20,5 +23,6 @@ Checks:
   - 'performance-*'
   - 'portability-*'
   - 'readability-*'
-WarningsAsErrors: '*'
-FormatStyle: file
+
+CheckOptions:
+  'misc-include-cleaner.IgnoreHeaders': '_stdio.h'
