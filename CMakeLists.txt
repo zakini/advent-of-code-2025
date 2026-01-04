@@ -10,9 +10,13 @@ target_sources(${PROJECT_NAME}
         src/main.c
         src/day1.h
         src/day1.c
+        src/day2.h
+        src/day2.c
 
         src/utils.h
         src/utils.c
+        src/dynamic-array.h
+        src/dynamic-array.c
 )
 
 set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
@@ -34,14 +38,20 @@ target_sources(${PROJECT_NAME}test
         test/main.c
         test/day1.h
         test/day1.c
+        test/day2.h
+        test/day2.c
 
         test/CUnit.h
 
         src/day1.h
         src/day1.c
+        src/day2.h
+        src/day2.c
 
         src/utils.h
         src/utils.c
+        src/dynamic-array.h
+        src/dynamic-array.c
 )
 
 set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
