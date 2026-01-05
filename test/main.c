@@ -8,6 +8,10 @@
 #include <stdlib.h>
 
 int main(void) {
+  int (*suite_definitions[])(void) = {
+    day1CreateTestSuite,
+    day2CreateTestSuite,
+  };
   unsigned int failedCount;
 
   if (CU_initialize_registry() != CUE_SUCCESS) {
@@ -17,20 +21,14 @@ int main(void) {
     return EXIT_FAILURE;
   }
 
-  if (day1CreateTestSuite() != EXIT_SUCCESS) {
-    CU_cleanup_registry();
-    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to create day 1 test suite: %s\n",
-            CU_get_error_msg());
-    return EXIT_FAILURE;
-  }
-
-  if (day2CreateTestSuite() != EXIT_SUCCESS) {
-    CU_cleanup_registry();
-    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to create day 2 test suite: %s\n",
-            CU_get_error_msg());
-    return EXIT_FAILURE;
+  for (size_t i = 0; i < (sizeof(suite_definitions) / sizeof(suite_definitions[0])); i++) {
+    if (suite_definitions[i]() != EXIT_SUCCESS) {
+      CU_cleanup_registry();
+      // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
+      fprintf(stderr, "Failed to create test suite %lu: %s\n", i,
+              CU_get_error_msg());
+      return EXIT_FAILURE;
+    }
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
