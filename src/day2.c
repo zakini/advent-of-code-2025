@@ -2,6 +2,9 @@
 #include "dynamic-array.h"
 #include "utils.h"
 #include <float.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,7 +46,7 @@ static struct Range parseValue(char *value, unsigned int input_number) {
   return range;
 }
 
-long day2Part1(char *inputFilePath) {
+static long day2(char inputFilePath[], size_t maxSegments) {
   FILE *file = NULL;
   char *input_value = NULL;
   size_t input_capacity = 0;
@@ -51,8 +54,9 @@ long day2Part1(char *inputFilePath) {
 
   struct Range current_range = {0, 0};
   char string_value[BUFFER_MAX] = "";
-  char first_half[BUFFER_MAX] = "";
-  char second_half[BUFFER_MAX] = "";
+  unsigned long max_segments_for_value = 0;
+  char value_segments[BUFFER_MAX][BUFFER_MAX] = {};
+  bool all_same = false;
   struct DynamicArray *invalid_ids = NULL;
   long result = 0;
 
@@ -69,23 +73,36 @@ long day2Part1(char *inputFilePath) {
   while (getdelim(&input_value, &input_capacity, ',', file) != -1) {
     current_range = parseValue(input_value, input_number);
 
-    for (long i = current_range.start; i <= current_range.end; i++) {
-      sprintf(string_value, "%ld", i);
+    for (long value = current_range.start; value <= current_range.end; value++) {
+      sprintf(string_value, "%ld", value);
+      max_segments_for_value = min(maxSegments, strlen(string_value));
 
-      // Odd number of digits in this ID, so impossible for it to only be made
-      // of 2 sets of a sequence of digits
-      if (strlen(string_value) % 2 != 0) {
-        continue;
-      }
+      for (size_t segment_count = 2; segment_count <= max_segments_for_value; segment_count++) {
+        // Check if we can split this string into the current number of segments
+        if (strlen(string_value) % segment_count != 0) {
+          continue;
+        }
 
-      strncpy(first_half, string_value, strlen(string_value));
-      first_half[strlen(string_value) / 2] = 0;
-      strncpy(second_half,
-              string_value + (sizeof(char) * strlen(string_value) / 2),
-              strlen(string_value));
+        for (size_t i = 0; i < segment_count; i++) {
+          strncpy(value_segments[i],
+                  string_value + (i * sizeof(char) * strlen(string_value) / segment_count),
+                  strlen(string_value));
+          value_segments[i][strlen(string_value) / segment_count] = 0;
+        }
 
-      if (strcmp(first_half, second_half) == 0) {
-        DA_push(invalid_ids, i);
+        all_same = true;
+        for (size_t i = 0; i < segment_count - 1; i++) {
+          if (strcmp(value_segments[i], value_segments[i+1]) != 0) {
+            all_same = false;
+            break;
+          }
+        }
+
+
+        if (all_same) {
+          DA_push(invalid_ids, value);
+          break;
+        }
       }
     }
 
@@ -107,4 +124,12 @@ long day2Part1(char *inputFilePath) {
   exit_if(fclose(file) != 0, "Failed to close file handle\n");
 
   return result;
+}
+
+long day2Part1(char inputFilePath[]) {
+  return day2(inputFilePath, 2);
+}
+
+long day2Part2(char inputFilePath[]) {
+  return day2(inputFilePath, SIZE_MAX);
 }
