@@ -1,4 +1,5 @@
 #include "day1.h"
+#include "day2.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUError.h>
 #include <CUnit/TestDB.h>
@@ -11,7 +12,7 @@ int main(void) {
 
   if (CU_initialize_registry() != CUE_SUCCESS) {
     // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to initialise CUnit registry: %s",
+    fprintf(stderr, "Failed to initialise CUnit registry: %s\n",
             CU_get_error_msg());
     return EXIT_FAILURE;
   }
@@ -19,7 +20,15 @@ int main(void) {
   if (day1CreateTestSuite() != EXIT_SUCCESS) {
     CU_cleanup_registry();
     // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
-    fprintf(stderr, "Failed to create day 1 test suite: %s",
+    fprintf(stderr, "Failed to create day 1 test suite: %s\n",
+            CU_get_error_msg());
+    return EXIT_FAILURE;
+  }
+
+  if (day2CreateTestSuite() != EXIT_SUCCESS) {
+    CU_cleanup_registry();
+    // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
+    fprintf(stderr, "Failed to create day 2 test suite: %s\n",
             CU_get_error_msg());
     return EXIT_FAILURE;
   }

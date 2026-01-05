@@ -10,9 +10,13 @@ target_sources(${PROJECT_NAME}
         src/main.c
         src/day1.h
         src/day1.c
+        src/day2.h
+        src/day2.c
 
         src/utils.h
         src/utils.c
+        src/dynamic-array.h
+        src/dynamic-array.c
 )
 
 set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
@@ -21,7 +25,11 @@ set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
 # Disable unsafe-buffer-usage since it's not clear how to make this warning
 # happy
 target_compile_options(${PROJECT_NAME}
-  PRIVATE -Weverything -Wno-unsafe-buffer-usage
+  PRIVATE
+    -Weverything
+    -Wno-unsafe-buffer-usage
+    -Wno-variadic-macro-arguments-omitted
+    -Wno-unused-macros
 )
 
 ### Tests ###
@@ -34,14 +42,20 @@ target_sources(${PROJECT_NAME}test
         test/main.c
         test/day1.h
         test/day1.c
+        test/day2.h
+        test/day2.c
 
         test/CUnit.h
 
         src/day1.h
         src/day1.c
+        src/day2.h
+        src/day2.c
 
         src/utils.h
         src/utils.c
+        src/dynamic-array.h
+        src/dynamic-array.c
 )
 
 set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
@@ -50,7 +64,11 @@ set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
 # Disable unsafe-buffer-usage since it's not clear how to make this warning
 # happy
 target_compile_options(${PROJECT_NAME}test
-  PRIVATE -Weverything -Wno-unsafe-buffer-usage
+  PRIVATE
+    -Weverything
+    -Wno-unsafe-buffer-usage
+    -Wno-variadic-macro-arguments-omitted
+    -Wno-unused-macros
 )
 
 # TODO re-add this if we end up using more than just cunit and want to
