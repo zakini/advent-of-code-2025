@@ -46,6 +46,7 @@ target_sources(${PROJECT_NAME}test
         test/day2.c
 
         test/CUnit.h
+        test/CUnit.c
 
         src/day1.h
         src/day1.c

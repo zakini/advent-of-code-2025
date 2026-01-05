@@ -16,15 +16,10 @@ static void it_gets_correct_answer_for_part_2_with_example_data(void) {
 }
 
 int day2CreateTestSuite(void) {
-  CU_pSuite suite = NULL;
+  struct AOC_CU_TEST_DEFINITION test_definitions[] = {
+    AOC_CU_INIT_TEST_DEFINITION(it_gets_correct_answer_for_part_1_with_example_data),
+    AOC_CU_INIT_TEST_DEFINITION(it_gets_correct_answer_for_part_2_with_example_data),
+  };
 
-  suite = CU_add_suite("Day 2", NULL, NULL);
-  if (suite == NULL) {
-    return EXIT_FAILURE;
-  }
-
-  CU_ADD_TEST(suite, it_gets_correct_answer_for_part_1_with_example_data);
-  CU_ADD_TEST(suite, it_gets_correct_answer_for_part_2_with_example_data);
-
-  return EXIT_SUCCESS;
+  return AOC_CU_addSuite(test_definitions, sizeof(test_definitions) / sizeof(test_definitions[0]));
 }
