@@ -46,6 +46,30 @@ static struct Range parseValue(char *value, unsigned int input_number) {
   return range;
 }
 
+static bool idIsValidForSegmentCount(char *current_id, size_t segmentCount) {
+  char id_segments[BUFFER_MAX][BUFFER_MAX] = {};
+
+  // Check if we can split this string into the current number of segments
+  if (strlen(current_id) % segmentCount != 0) {
+    return true;
+  }
+
+  for (size_t i = 0; i < segmentCount; i++) {
+    strncpy(id_segments[i],
+            current_id + (i * sizeof(char) * strlen(current_id) / segmentCount),
+            strlen(current_id));
+    id_segments[i][strlen(current_id) / segmentCount] = 0;
+  }
+
+  for (size_t i = 0; i < segmentCount - 1; i++) {
+    if (strcmp(id_segments[i], id_segments[i + 1]) != 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 static long day2(char inputFilePath[], size_t maxSegments) {
   FILE *file = NULL;
   char *input_value = NULL;
@@ -53,10 +77,8 @@ static long day2(char inputFilePath[], size_t maxSegments) {
   unsigned int input_number = 0;
 
   struct Range current_range = {0, 0};
-  char string_value[BUFFER_MAX] = "";
+  char current_id[BUFFER_MAX] = "";
   unsigned long max_segments_for_value = 0;
-  char value_segments[BUFFER_MAX][BUFFER_MAX] = {};
-  bool all_same = false;
   struct DynamicArray *invalid_ids = NULL;
   long result = 0;
 
@@ -73,33 +95,14 @@ static long day2(char inputFilePath[], size_t maxSegments) {
   while (getdelim(&input_value, &input_capacity, ',', file) != -1) {
     current_range = parseValue(input_value, input_number);
 
-    for (long value = current_range.start; value <= current_range.end; value++) {
-      sprintf(string_value, "%ld", value);
-      max_segments_for_value = min(maxSegments, strlen(string_value));
+    for (long value = current_range.start; value <= current_range.end;
+         value++) {
+      sprintf(current_id, "%ld", value);
+      max_segments_for_value = min(maxSegments, strlen(current_id));
 
-      for (size_t segment_count = 2; segment_count <= max_segments_for_value; segment_count++) {
-        // Check if we can split this string into the current number of segments
-        if (strlen(string_value) % segment_count != 0) {
-          continue;
-        }
-
-        for (size_t i = 0; i < segment_count; i++) {
-          strncpy(value_segments[i],
-                  string_value + (i * sizeof(char) * strlen(string_value) / segment_count),
-                  strlen(string_value));
-          value_segments[i][strlen(string_value) / segment_count] = 0;
-        }
-
-        all_same = true;
-        for (size_t i = 0; i < segment_count - 1; i++) {
-          if (strcmp(value_segments[i], value_segments[i+1]) != 0) {
-            all_same = false;
-            break;
-          }
-        }
-
-
-        if (all_same) {
+      for (size_t segment_count = 2; segment_count <= max_segments_for_value;
+           segment_count++) {
+        if (!idIsValidForSegmentCount(current_id, segment_count)) {
           DA_push(invalid_ids, value);
           break;
         }
@@ -126,10 +129,6 @@ static long day2(char inputFilePath[], size_t maxSegments) {
   return result;
 }
 
-long day2Part1(char inputFilePath[]) {
-  return day2(inputFilePath, 2);
-}
+long day2Part1(char inputFilePath[]) { return day2(inputFilePath, 2); }
 
-long day2Part2(char inputFilePath[]) {
-  return day2(inputFilePath, SIZE_MAX);
-}
+long day2Part2(char inputFilePath[]) { return day2(inputFilePath, SIZE_MAX); }

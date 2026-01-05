@@ -15,6 +15,7 @@ Checks:
   - '-clang-diagnostic-unused-macros'
   # We're using C23, so we're allowed to omit these
   - '-clang-diagnostic-variadic-macro-arguments-omitted'
+  - '-clang-diagnostic-c23-extensions'
 
   - 'llvm-*'
   # Ignore llvm-header-guard since it changes defines to be based on the absolute file path
