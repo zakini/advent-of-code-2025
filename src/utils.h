@@ -1,6 +1,9 @@
 #ifndef AOC25_SRC_UTILS_H
 #define AOC25_SRC_UTILS_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 enum { DECIMAL_BASE = 10 };
 
 #define min(a, b) ((a) < (b)) ? (a) : (b)

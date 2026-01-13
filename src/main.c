@@ -1,5 +1,6 @@
 #include "day1.h"
 #include "day2.h"
+#include "day3.h"
 #include <stdio.h>
 
 struct DayPart {
@@ -12,6 +13,10 @@ struct Day {
   struct DayPart parts[2];
 };
 
+static long notImplemented(char *f) {
+  return -1;
+}
+
 int main(void) {
   struct Day days[] = {
     {1, {
@@ -21,6 +26,10 @@ int main(void) {
     {2, {
       {day2Part1, "data/day2/data.txt"},
       {day2Part2, "data/day2/data.txt"},
+    }},
+    {3, {
+      {day3Part1, "data/day3/data.txt"},
+      {notImplemented, ""},
     }},
   };
 
