@@ -119,7 +119,7 @@ static struct DialZeroPositionCounts day1(char inputFilePath[]) {
   return result;
 }
 
-int day1Part1(char inputFilePath[]) {
+long day1Part1(char inputFilePath[]) {
   struct DialZeroPositionCounts result;
 
   result = day1(inputFilePath);
@@ -127,7 +127,7 @@ int day1Part1(char inputFilePath[]) {
   return result.stoppedOn;
 }
 
-int day1Part2(char inputFilePath[]) {
+long day1Part2(char inputFilePath[]) {
   struct DialZeroPositionCounts result;
 
   result = day1(inputFilePath);
