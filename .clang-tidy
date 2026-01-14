@@ -28,4 +28,4 @@ Checks:
   - 'readability-*'
 
 CheckOptions:
-  'misc-include-cleaner.IgnoreHeaders': '_stdio.h'
+  'misc-include-cleaner.IgnoreHeaders': '_stdio.h;_sys/_types/*'

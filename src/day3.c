@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <sys/types.h>
 
 enum { MAX_DIGIT = 9 };
 
@@ -34,6 +36,7 @@ static int parseLine(char *line, struct Battery **bank, size_t *size) {
   return 0;
 }
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
   ssize_t largestBatteryIndex = -1;
 
@@ -77,9 +80,6 @@ long day3Part1(char *inputFilePath) {
 
   struct Battery *battery_bank = NULL;
   size_t battery_bank_size = 0;
-  ssize_t temp = -1;
-  size_t largest_battery_indexes[2] = {};
-  char max_bank_joltage[2] = "";
   int result = 0;
 
   file = fopen(inputFilePath, "r");
@@ -89,17 +89,7 @@ long day3Part1(char *inputFilePath) {
     exit_if(line_length <= 1, "Line %u is empty\n", line_number);
     exit_if(parseLine(line, &battery_bank, &battery_bank_size) == -1, "Line %u contains a joltage that is not a digit | full line: %s\n", line_number, line);
 
-    temp = findLargestBatteryIndex(battery_bank, battery_bank_size - 1);
-    exit_if(temp < 0, "Failed to find largest battery\n");
-    largest_battery_indexes[0] = (size_t)temp;
-    temp = findLargestBatteryIndex(&battery_bank[largest_battery_indexes[0] + 1], battery_bank_size - largest_battery_indexes[0] - 1);
-    exit_if(temp < 0, "Failed to find second largest battery\n");
-    largest_battery_indexes[1] = (size_t)temp + largest_battery_indexes[0] + 1;
-
-    max_bank_joltage[0] = (char)(battery_bank[largest_battery_indexes[0]].joltage + '0');
-    max_bank_joltage[1] = (char)(battery_bank[largest_battery_indexes[1]].joltage + '0');
-
-    result += (int)strtol(max_bank_joltage, NULL, DECIMAL_BASE);
+    result += calculateMaxJoltage(battery_bank, battery_bank_size);
 
     line_number++;
   }

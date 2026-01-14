@@ -1,9 +1,6 @@
 #include "day2.h"
 #include "../src/day2.h"
 #include "CUnit.h"
-// NOLINTNEXTLINE(misc-include-cleaner) we're not using this directly, but not including it causes compiler errors related to CUnit types not being defined
-#include <CUnit/CUnit.h>
-#include <CUnit/TestDB.h>
 #include <stdlib.h>
 
 static void it_gets_correct_answer_for_part_1_with_example_data(void) {

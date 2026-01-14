@@ -1,7 +1,10 @@
 #include "CUnit.h"
+#include <CUnit/CUError.h>
+// NOLINTNEXTLINE(misc-include-cleaner) we're not using this directly, but not including it causes compiler errors related to CUnit types not being defined
 #include <CUnit/CUnit.h>
 #include <CUnit/TestDB.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 int AOC_CU_addSuite(struct AOC_CU_TEST_DEFINITION testDefs[], size_t testDefsSize) {

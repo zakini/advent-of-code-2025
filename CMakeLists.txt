@@ -32,6 +32,7 @@ target_compile_options(${PROJECT_NAME}
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
+    -Wno-padded
 )
 
 ### Tests ###
@@ -76,6 +77,7 @@ target_compile_options(${PROJECT_NAME}test
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
+    -Wno-padded
 )
 
 # TODO re-add this if we end up using more than just cunit and want to

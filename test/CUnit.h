@@ -1,7 +1,9 @@
 #ifndef AOC25_TEST_CUNIT_H
 #define AOC25_TEST_CUNIT_H
 
+#include <CUnit/CUnit.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #define AOC_CU_ASSERT_EQUAL(actual, expected, format)                          \
   do {                                                                         \
