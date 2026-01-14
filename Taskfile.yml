@@ -112,8 +112,8 @@ tasks:
     desc: Lint all code
     cmds:
       - find src -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release
-      - find src -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
       - find test -name '*.h' -or -name '*.c' | xargs clang-tidy -p build/Release
+      - find src -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
       - find test -name '*.h' -or -name '*.c' | xargs clang-format --dry-run --Werror
 
   lint-fix:
