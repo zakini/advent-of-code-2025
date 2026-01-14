@@ -28,7 +28,6 @@ set(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD_REQUIRED 23)
 # happy
 target_compile_options(${PROJECT_NAME}
   PRIVATE
-    -O2
     -Weverything
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
@@ -73,7 +72,6 @@ set(TARGET ${PROJECT_NAME}test PROPERTY C_STANDARD_REQUIRED 23)
 # happy
 target_compile_options(${PROJECT_NAME}test
   PRIVATE
-    -O0
     -Weverything
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
