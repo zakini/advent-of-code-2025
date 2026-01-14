@@ -19,8 +19,7 @@ static int parseLine(char *line, struct Battery **bank, size_t *size) {
   size_t line_length = strlen(line);
   assert(line_length > 0);
 
-  // TODO use trim instead
-  *size = line_length - 1;
+  *size = line_length;
   *bank = (struct Battery *)malloc(sizeof(struct Battery) * *size);
 
   for (size_t i = 0; i < *size; i++) {
@@ -86,6 +85,7 @@ long day3Part1(char *inputFilePath) {
   exit_if(file == NULL, "Failed to open %s\n", inputFilePath);
 
   while ((line_length = getline(&line, &line_capacity, file)) != -1) {
+    line = trim(line);
     exit_if(line_length <= 1, "Line %u is empty\n", line_number);
     exit_if(parseLine(line, &battery_bank, &battery_bank_size) == -1, "Line %u contains a joltage that is not a digit | full line: %s\n", line_number, line);
 
