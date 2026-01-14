@@ -50,7 +50,8 @@ static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
 static int calculateMaxJoltage(struct Battery *bank, size_t size) {
   ssize_t temp = -1;
   size_t largest_battery_indexes[2] = {};
-  char max_bank_joltage[2] = "";
+  char max_bank_joltage[2 + 1] = "";
+  int max_joltage = -1;
 
   temp = findLargestBatteryIndex(bank, size - 1);
   exit_if(temp < 0, "Failed to find largest battery\n");
@@ -62,7 +63,9 @@ static int calculateMaxJoltage(struct Battery *bank, size_t size) {
   max_bank_joltage[0] = (char)(bank[largest_battery_indexes[0]].joltage + '0');
   max_bank_joltage[1] = (char)(bank[largest_battery_indexes[1]].joltage + '0');
 
-  return (int)strtol(max_bank_joltage, NULL, DECIMAL_BASE);
+  max_joltage = (int)strtol(max_bank_joltage, NULL, DECIMAL_BASE);
+  assert(0 <= max_joltage && max_joltage <= 99);
+  return max_joltage;
 }
 
 long day3Part1(char *inputFilePath) {
