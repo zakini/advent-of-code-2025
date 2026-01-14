@@ -25,6 +25,7 @@ struct AOC_CU_TEST_DEFINITION {
 };
 #define AOC_CU_INIT_TEST_DEFINITION(a) {#a, a}
 
-int AOC_CU_addSuite(struct AOC_CU_TEST_DEFINITION testDefs[], size_t testDefsSize);
+int AOC_CU_addSuite(struct AOC_CU_TEST_DEFINITION testDefs[],
+                    size_t testDefsSize);
 
 #endif

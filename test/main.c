@@ -10,9 +10,9 @@
 
 int main(void) {
   int (*suite_definitions[])(void) = {
-    day1CreateTestSuite,
-    day2CreateTestSuite,
-    day3CreateTestSuite,
+      day1CreateTestSuite,
+      day2CreateTestSuite,
+      day3CreateTestSuite,
   };
   unsigned int failedCount;
 
@@ -23,7 +23,8 @@ int main(void) {
     return EXIT_FAILURE;
   }
 
-  for (size_t i = 0; i < (sizeof(suite_definitions) / sizeof(suite_definitions[0])); i++) {
+  for (size_t i = 0;
+       i < (sizeof(suite_definitions) / sizeof(suite_definitions[0])); i++) {
     if (suite_definitions[i]() != EXIT_SUCCESS) {
       CU_cleanup_registry();
       // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently

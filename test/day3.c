@@ -9,8 +9,10 @@ static void it_gets_correct_answer_for_part_1_with_example_data(void) {
 
 int day3CreateTestSuite(void) {
   struct AOC_CU_TEST_DEFINITION test_definitions[] = {
-    AOC_CU_INIT_TEST_DEFINITION(it_gets_correct_answer_for_part_1_with_example_data),
+      AOC_CU_INIT_TEST_DEFINITION(
+          it_gets_correct_answer_for_part_1_with_example_data),
   };
 
-  return AOC_CU_addSuite(test_definitions, sizeof(test_definitions) / sizeof(test_definitions[0]));
+  return AOC_CU_addSuite(test_definitions, sizeof(test_definitions) /
+                                               sizeof(test_definitions[0]));
 }
