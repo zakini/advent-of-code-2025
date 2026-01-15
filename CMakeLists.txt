@@ -33,6 +33,7 @@ target_compile_options(${PROJECT_NAME}
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
     -Wno-padded
+    -Wno-c23-extensions
 )
 
 ### Tests ###
@@ -78,6 +79,7 @@ target_compile_options(${PROJECT_NAME}test
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
     -Wno-padded
+    -Wno-c23-extensions
 )
 
 # TODO re-add this if we end up using more than just cunit and want to
