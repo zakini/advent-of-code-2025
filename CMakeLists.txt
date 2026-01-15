@@ -12,6 +12,8 @@ target_sources(${PROJECT_NAME}
         src/day1.c
         src/day2.h
         src/day2.c
+        src/day3.h
+        src/day3.c
 
         src/utils.h
         src/utils.c
@@ -30,6 +32,8 @@ target_compile_options(${PROJECT_NAME}
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
+    -Wno-padded
+    -Wno-c23-extensions
 )
 
 ### Tests ###
@@ -44,13 +48,18 @@ target_sources(${PROJECT_NAME}test
         test/day1.c
         test/day2.h
         test/day2.c
+        test/day3.h
+        test/day3.c
 
         test/CUnit.h
+        test/CUnit.c
 
         src/day1.h
         src/day1.c
         src/day2.h
         src/day2.c
+        src/day3.h
+        src/day3.c
 
         src/utils.h
         src/utils.c
@@ -69,6 +78,8 @@ target_compile_options(${PROJECT_NAME}test
     -Wno-unsafe-buffer-usage
     -Wno-variadic-macro-arguments-omitted
     -Wno-unused-macros
+    -Wno-padded
+    -Wno-c23-extensions
 )
 
 # TODO re-add this if we end up using more than just cunit and want to
