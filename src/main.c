@@ -13,7 +13,7 @@ struct Day {
   struct DayPart parts[2];
 };
 
-static long notImplemented(__attribute__((unused)) char *inputFilePath) {
+static long __attribute__((unused)) notImplemented(__attribute__((unused)) char *inputFilePath) {
   return -1;
 }
 
@@ -32,7 +32,7 @@ int main(void) {
       {3,
        {
            {day3Part1, "data/day3/data.txt"},
-           {notImplemented, ""},
+           {day3Part2, "data/day3/data.txt"},
        }},
   };
 

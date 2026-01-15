@@ -1,6 +1,8 @@
 #include "day3.h"
 #include "utils.h"
 #include <assert.h>
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <math.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +11,7 @@
 #include <sys/types.h>
 
 enum { MAX_DIGIT = 9 };
+enum { MAX_BATTERY_BANK_SIZE = 200 };
 
 struct Battery {
   unsigned int joltage;
@@ -42,6 +45,7 @@ static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
 
   for (size_t i = 0; i < size; i++) {
     if (largestBatteryIndex == -1 ||
+        // NOLINTNEXTLINE(clang-analyzer-security.ArrayBound): pretty sure I'm calculating this offset correctly
         bank[largestBatteryIndex].joltage < bank[i].joltage) {
       largestBatteryIndex = (ssize_t)i;
     }
@@ -50,29 +54,34 @@ static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
   return largestBatteryIndex;
 }
 
-static int calculateMaxJoltage(struct Battery *bank, size_t size) {
+static long calculateMaxJoltage(struct Battery *bank, size_t size, int batteryCountToUse) {
   ssize_t temp = -1;
-  size_t largest_battery_indexes[2] = {};
-  char max_bank_joltage[2 + 1] = "";
-  int max_joltage = -1;
+  size_t largest_battery_indexes[MAX_BATTERY_BANK_SIZE] = {};
+  char max_bank_joltage[MAX_BATTERY_BANK_SIZE + 1] = "";
+  long max_joltage = -1;
 
-  temp = findLargestBatteryIndex(bank, size - 1);
-  exit_if(temp < 0, "Failed to find largest battery\n");
-  largest_battery_indexes[0] = (size_t)temp;
-  temp = findLargestBatteryIndex(&bank[largest_battery_indexes[0] + 1],
-                                 size - largest_battery_indexes[0] - 1);
-  exit_if(temp < 0, "Failed to find second largest battery\n");
-  largest_battery_indexes[1] = (size_t)temp + largest_battery_indexes[0] + 1;
+  for (int i = 0; i < batteryCountToUse; i++) {
+    if (i == 0) {
+      temp = findLargestBatteryIndex(bank, size - (size_t)(batteryCountToUse - 1));
+      exit_if(temp < 0, "Failed to find largest battery\n");
+    } else {
+      temp = findLargestBatteryIndex(&bank[largest_battery_indexes[i - 1] + 1],
+                                     size - largest_battery_indexes[i - 1] - (size_t)(batteryCountToUse - i));
+      exit_if(temp < 0, "Failed to find largest battery\n");
+      temp += (ssize_t)largest_battery_indexes[i - 1] + 1;
+    }
 
-  max_bank_joltage[0] = (char)(bank[largest_battery_indexes[0]].joltage + '0');
-  max_bank_joltage[1] = (char)(bank[largest_battery_indexes[1]].joltage + '0');
+    largest_battery_indexes[i] = (size_t)temp;
+    max_bank_joltage[i] = (char)(bank[largest_battery_indexes[i]].joltage + '0');
+  }
 
-  max_joltage = (int)strtol(max_bank_joltage, NULL, DECIMAL_BASE);
-  assert(0 <= max_joltage && max_joltage <= 99);
+
+  max_joltage = strtol(max_bank_joltage, NULL, DECIMAL_BASE);
+  assert(0 <= max_joltage && max_joltage <= (pow(10, batteryCountToUse) - 1));
   return max_joltage;
 }
 
-long day3Part1(char *inputFilePath) {
+static long day3(char *inputFilePath, int batteryCountToUse) {
   FILE *file = NULL;
   char *line = NULL;
   size_t line_capacity = 0;
@@ -81,7 +90,7 @@ long day3Part1(char *inputFilePath) {
 
   struct Battery *battery_bank = NULL;
   size_t battery_bank_size = 0;
-  int result = 0;
+  long result = 0;
 
   file = fopen(inputFilePath, "r");
   exit_if(file == NULL, "Failed to open %s\n", inputFilePath);
@@ -93,7 +102,7 @@ long day3Part1(char *inputFilePath) {
             "Line %u contains a joltage that is not a digit | full line: %s\n",
             line_number, line);
 
-    result += calculateMaxJoltage(battery_bank, battery_bank_size);
+    result += calculateMaxJoltage(battery_bank, battery_bank_size, batteryCountToUse);
 
     line_number++;
   }
@@ -109,4 +118,13 @@ long day3Part1(char *inputFilePath) {
   }
 
   return result;
+}
+
+long day3Part1(char *inputFilePath) {
+  return day3(inputFilePath, 2);
+}
+
+long day3Part2(char *inputFilePath) {
+  // NOLINTNEXTLINE(readability-magic-numbers)
+  return day3(inputFilePath, 12);
 }
