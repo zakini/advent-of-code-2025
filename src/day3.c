@@ -54,7 +54,8 @@ static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
   return largestBatteryIndex;
 }
 
-static long calculateMaxJoltage(struct Battery *bank, size_t size, int batteryCountToUse) {
+static long calculateMaxJoltage(struct Battery *bank, size_t size,
+                                int batteryCountToUse) {
   ssize_t temp = -1;
   size_t largest_battery_indexes[MAX_BATTERY_BANK_SIZE] = {};
   char max_bank_joltage[MAX_BATTERY_BANK_SIZE + 1] = "";
@@ -62,19 +63,21 @@ static long calculateMaxJoltage(struct Battery *bank, size_t size, int batteryCo
 
   for (int i = 0; i < batteryCountToUse; i++) {
     if (i == 0) {
-      temp = findLargestBatteryIndex(bank, size - (size_t)(batteryCountToUse - 1));
+      temp =
+          findLargestBatteryIndex(bank, size - (size_t)(batteryCountToUse - 1));
       exit_if(temp < 0, "Failed to find largest battery\n");
     } else {
       temp = findLargestBatteryIndex(&bank[largest_battery_indexes[i - 1] + 1],
-                                     size - largest_battery_indexes[i - 1] - (size_t)(batteryCountToUse - i));
+                                     size - largest_battery_indexes[i - 1] -
+                                         (size_t)(batteryCountToUse - i));
       exit_if(temp < 0, "Failed to find largest battery\n");
       temp += (ssize_t)largest_battery_indexes[i - 1] + 1;
     }
 
     largest_battery_indexes[i] = (size_t)temp;
-    max_bank_joltage[i] = (char)(bank[largest_battery_indexes[i]].joltage + '0');
+    max_bank_joltage[i] =
+        (char)(bank[largest_battery_indexes[i]].joltage + '0');
   }
-
 
   max_joltage = strtol(max_bank_joltage, NULL, DECIMAL_BASE);
   assert(0 <= max_joltage && max_joltage <= (pow(10, batteryCountToUse) - 1));
@@ -102,7 +105,8 @@ static long day3(char *inputFilePath, int batteryCountToUse) {
             "Line %u contains a joltage that is not a digit | full line: %s\n",
             line_number, line);
 
-    result += calculateMaxJoltage(battery_bank, battery_bank_size, batteryCountToUse);
+    result +=
+        calculateMaxJoltage(battery_bank, battery_bank_size, batteryCountToUse);
 
     line_number++;
   }
@@ -120,9 +124,7 @@ static long day3(char *inputFilePath, int batteryCountToUse) {
   return result;
 }
 
-long day3Part1(char *inputFilePath) {
-  return day3(inputFilePath, 2);
-}
+long day3Part1(char *inputFilePath) { return day3(inputFilePath, 2); }
 
 long day3Part2(char *inputFilePath) {
   // NOLINTNEXTLINE(readability-magic-numbers)

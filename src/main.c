@@ -13,7 +13,8 @@ struct Day {
   struct DayPart parts[2];
 };
 
-static long __attribute__((unused)) notImplemented(__attribute__((unused)) char *inputFilePath) {
+static long __attribute__((unused))
+notImplemented(__attribute__((unused)) char *inputFilePath) {
   return -1;
 }
 
