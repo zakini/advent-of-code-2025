@@ -22,7 +22,7 @@ Tests are written using [CUnit](https://cunit.sourceforge.net/)
 
 ## Linting and Formatting
 Run `task lint` to lint code  
-Run `task lint-fix` to automatically fix lint issues (where possible)
+Run `task lint-fix` to automatically fix lint issues (where possible)  
 Run `task format` to format code
 
 Linting is handled by [`clang-tidy`](https://releases.llvm.org/21.1.0/tools/clang/tools/extra/docs/clang-tidy/index.html)  
