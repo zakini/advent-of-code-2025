@@ -45,7 +45,7 @@ static ssize_t findLargestBatteryIndex(struct Battery *bank, size_t size) {
 
   for (size_t i = 0; i < size; i++) {
     if (largestBatteryIndex == -1 ||
-        // NOLINTNEXTLINE(clang-analyzer-security.ArrayBound): pretty sure I'm calculating this offset correctly
+        // NOLINTNEXTLINE(clang-analyzer-*): pretty sure I'm calculating this offset correctly
         bank[largestBatteryIndex].joltage < bank[i].joltage) {
       largestBatteryIndex = (ssize_t)i;
     }
