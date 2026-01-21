@@ -70,6 +70,15 @@ static bool idIsValidForSegmentCount(char *current_id, size_t segmentCount) {
   return false;
 }
 
+static void pushFromValue(struct DynamicArray *array, long value) {
+  long *temp = NULL;
+
+  temp = (long*)malloc(sizeof(long));
+  exit_if(temp == NULL, "Failed to allocate memory for invalid ID\n");
+  *temp = value;
+  DA_push(array, temp);
+}
+
 static long day2(char inputFilePath[], size_t maxSegments) {
   FILE *file = NULL;
   char *input_value = NULL;
@@ -103,14 +112,14 @@ static long day2(char inputFilePath[], size_t maxSegments) {
       for (size_t segment_count = 2; segment_count <= max_segments_for_value;
            segment_count++) {
         if (!idIsValidForSegmentCount(current_id, segment_count)) {
-          DA_push(invalid_ids, value);
+          pushFromValue(invalid_ids, value);
           break;
         }
       }
     }
 
     for (size_t i = 0; i < DA_len(invalid_ids); i++) {
-      result += DA_get(invalid_ids, i);
+      result += *(long *)DA_get(invalid_ids, i);
     }
 
     DA_clear(invalid_ids);

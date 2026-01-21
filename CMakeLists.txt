@@ -36,6 +36,7 @@ target_compile_options(${PROJECT_NAME}
     -Wno-unused-macros
     -Wno-padded
     -Wno-c23-extensions
+    -Wno-covered-switch-default
 )
 
 ### Tests ###
@@ -86,6 +87,7 @@ target_compile_options(${PROJECT_NAME}test
     -Wno-unused-macros
     -Wno-padded
     -Wno-c23-extensions
+    -Wno-covered-switch-default
 )
 
 # TODO re-add this if we end up using more than just cunit and want to
