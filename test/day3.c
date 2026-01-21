@@ -19,6 +19,7 @@ int day3CreateTestSuite(void) {
           it_gets_correct_answer_for_part_2_with_example_data),
   };
 
-  return AOC_CU_addSuite(test_definitions, sizeof(test_definitions) /
-                                               sizeof(test_definitions[0]));
+  return AOC_CU_addSuite("Day 3", test_definitions,
+                         sizeof(test_definitions) /
+                             sizeof(test_definitions[0]));
 }
