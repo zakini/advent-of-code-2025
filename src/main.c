@@ -13,8 +13,8 @@ struct Day {
   struct DayPart parts[2];
 };
 
-static long __attribute__((unused))
-notImplemented(__attribute__((unused)) char *inputFilePath) {
+[[maybe_unused]] static long
+notImplemented([[maybe_unused]] char *inputFilePath) {
   return -1;
 }
 
@@ -38,11 +38,24 @@ int main(void) {
   };
 
   for (size_t i = 0; i < sizeof(days) / sizeof(days[0]); i++) {
+    if (i != 0) {
+      printf("\n");
+    }
     printf("Day %d\n=====\n", days[i].day_number);
-    printf("Part 1: %ld\n",
-           days[i].parts[0].func(days[i].parts[0].input_file_path));
-    printf("Part 2: %ld\n",
-           days[i].parts[1].func(days[i].parts[1].input_file_path));
+
+    if (days[i].parts[0].func == notImplemented) {
+      printf("Part 1: not implemented");
+    } else {
+      printf("Part 1: %ld\n",
+             days[i].parts[0].func(days[i].parts[0].input_file_path));
+    }
+
+    if (days[i].parts[1].func == notImplemented) {
+      printf("Part 2: not implemented");
+    } else {
+      printf("Part 2: %ld\n",
+             days[i].parts[1].func(days[i].parts[1].input_file_path));
+    }
   }
 
   return 0;
