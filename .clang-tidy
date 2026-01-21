@@ -29,3 +29,4 @@ Checks:
 
 CheckOptions:
   'misc-include-cleaner.IgnoreHeaders': '_stdio.h;_sys/_types/*'
+  'readability-identifier-length.IgnoredLoopCounterNames': '^[ijk_xy]$'

@@ -32,7 +32,10 @@ static void parseFile(char *inputFilePath, struct Grid *worldGrid) {
     if (line_number == 0) {
       worldGrid->width = (unsigned int)strlen(line);
     } else {
-      exit_if(worldGrid->width != (unsigned int)strlen(line), "Grid does not have consistent width. First line width: %u, line %u width: %lu", worldGrid->width, line_number, strlen(line));
+      exit_if(worldGrid->width != (unsigned int)strlen(line),
+              "Grid does not have consistent width. First line width: %u, line "
+              "%u width: %lu",
+              worldGrid->width, line_number, strlen(line));
     }
 
     for (int i = 0; i < line_length; i++) {
@@ -56,7 +59,11 @@ static int countNeighbours(struct Grid *worldGrid, int centreX, int centreY) {
 
   for (int yOffset = -1; yOffset <= 1; yOffset++) {
     for (int xOffset = -1; xOffset <= 1; xOffset++) {
-      if ((xOffset == 0 && yOffset == 0) || (centreX + xOffset < 0 || (int)worldGrid->width <= centreX + xOffset) || (centreY + yOffset < 0 || (int)worldGrid->height <= centreY + yOffset)) {
+      if ((xOffset == 0 && yOffset == 0) ||
+          (centreX + xOffset < 0 ||
+           (int)worldGrid->width <= centreX + xOffset) ||
+          (centreY + yOffset < 0 ||
+           (int)worldGrid->height <= centreY + yOffset)) {
         continue;
       }
 
@@ -71,8 +78,8 @@ static int countNeighbours(struct Grid *worldGrid, int centreX, int centreY) {
 
 long day4Part1(char *inputFilePath) {
   struct Grid world_grid = {
-    .width = 0,
-    .height = 0,
+      .width = 0,
+      .height = 0,
   };
   long result = 0;
 
