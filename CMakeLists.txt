@@ -14,6 +14,8 @@ target_sources(${PROJECT_NAME}
         src/day2.c
         src/day3.h
         src/day3.c
+        src/day4.h
+        src/day4.c
 
         src/utils.h
         src/utils.c
@@ -50,6 +52,8 @@ target_sources(${PROJECT_NAME}test
         test/day2.c
         test/day3.h
         test/day3.c
+        test/day4.h
+        test/day4.c
 
         test/CUnit.h
         test/CUnit.c
@@ -60,6 +64,8 @@ target_sources(${PROJECT_NAME}test
         src/day2.c
         src/day3.h
         src/day3.c
+        src/day4.h
+        src/day4.c
 
         src/utils.h
         src/utils.c

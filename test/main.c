@@ -1,6 +1,7 @@
 #include "day1.h"
 #include "day2.h"
 #include "day3.h"
+#include "day4.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUError.h>
 #include <CUnit/TestDB.h>
@@ -13,6 +14,7 @@ int main(void) {
       day1CreateTestSuite,
       day2CreateTestSuite,
       day3CreateTestSuite,
+      day4CreateTestSuite,
   };
   unsigned int failedCount;
 

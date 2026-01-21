@@ -1,6 +1,7 @@
 #include "day1.h"
 #include "day2.h"
 #include "day3.h"
+#include "day4.h"
 #include <stdio.h>
 
 struct DayPart {
@@ -19,23 +20,26 @@ notImplemented([[maybe_unused]] char *inputFilePath) {
 }
 
 int main(void) {
-  struct Day days[] = {
-      {1,
-       {
-           {day1Part1, "data/day1/data.txt"},
-           {day1Part2, "data/day1/data.txt"},
-       }},
-      {2,
-       {
-           {day2Part1, "data/day2/data.txt"},
-           {day2Part2, "data/day2/data.txt"},
-       }},
-      {3,
-       {
-           {day3Part1, "data/day3/data.txt"},
-           {day3Part2, "data/day3/data.txt"},
-       }},
-  };
+  struct Day days[] = {{1,
+                        {
+                            {day1Part1, "data/day1/data.txt"},
+                            {day1Part2, "data/day1/data.txt"},
+                        }},
+                       {2,
+                        {
+                            {day2Part1, "data/day2/data.txt"},
+                            {day2Part2, "data/day2/data.txt"},
+                        }},
+                       {3,
+                        {
+                            {day3Part1, "data/day3/data.txt"},
+                            {day3Part2, "data/day3/data.txt"},
+                        }},
+                       {4,
+                        {
+                            {day4Part1, "data/day4/data.txt"},
+                            {notImplemented, ""},
+                        }}};
 
   for (size_t i = 0; i < sizeof(days) / sizeof(days[0]); i++) {
     if (i != 0) {
