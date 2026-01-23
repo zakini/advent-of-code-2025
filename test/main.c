@@ -1,6 +1,8 @@
 #include "day1.h"
 #include "day2.h"
 #include "day3.h"
+#include "day4.h"
+#include "dynamic-array.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUError.h>
 #include <CUnit/TestDB.h>
@@ -10,9 +12,8 @@
 
 int main(void) {
   int (*suite_definitions[])(void) = {
-      day1CreateTestSuite,
-      day2CreateTestSuite,
-      day3CreateTestSuite,
+      createDynamicArraysTestSuite, day1CreateTestSuite, day2CreateTestSuite,
+      day3CreateTestSuite,          day4CreateTestSuite,
   };
   unsigned int failedCount;
 

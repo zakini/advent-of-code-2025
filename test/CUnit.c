@@ -7,11 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int AOC_CU_addSuite(struct AOC_CU_TEST_DEFINITION testDefs[],
+int AOC_CU_addSuite(char *suiteName, struct AOC_CU_TEST_DEFINITION testDefs[],
                     size_t testDefsSize) {
   CU_pSuite suite = NULL;
 
-  suite = CU_add_suite("Day 1", NULL, NULL);
+  suite = CU_add_suite(suiteName, NULL, NULL);
   if (suite == NULL) {
     return EXIT_FAILURE;
   }

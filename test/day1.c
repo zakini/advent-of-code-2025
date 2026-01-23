@@ -197,6 +197,7 @@ int day1CreateTestSuite(void) {
       AOC_CU_INIT_TEST_DEFINITION(it_can_turn_left_by_over_100_and_miss_zero),
   };
 
-  return AOC_CU_addSuite(test_definitions, sizeof(test_definitions) /
-                                               sizeof(test_definitions[0]));
+  return AOC_CU_addSuite("Day 1", test_definitions,
+                         sizeof(test_definitions) /
+                             sizeof(test_definitions[0]));
 }

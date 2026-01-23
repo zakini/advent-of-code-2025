@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://json.schemastore.org/clang-tidy.json
+
+InheritParentConfig: true
+
+Checks:
+  # These are tests, we can deal with magic numbers here
+  - '-readability-magic-numbers'

@@ -14,6 +14,8 @@ target_sources(${PROJECT_NAME}
         src/day2.c
         src/day3.h
         src/day3.c
+        src/day4.h
+        src/day4.c
 
         src/utils.h
         src/utils.c
@@ -34,6 +36,7 @@ target_compile_options(${PROJECT_NAME}
     -Wno-unused-macros
     -Wno-padded
     -Wno-c23-extensions
+    -Wno-covered-switch-default
 )
 
 ### Tests ###
@@ -50,6 +53,10 @@ target_sources(${PROJECT_NAME}test
         test/day2.c
         test/day3.h
         test/day3.c
+        test/day4.h
+        test/day4.c
+        test/dynamic-array.h
+        test/dynamic-array.c
 
         test/CUnit.h
         test/CUnit.c
@@ -60,6 +67,8 @@ target_sources(${PROJECT_NAME}test
         src/day2.c
         src/day3.h
         src/day3.c
+        src/day4.h
+        src/day4.c
 
         src/utils.h
         src/utils.c
@@ -80,6 +89,7 @@ target_compile_options(${PROJECT_NAME}test
     -Wno-unused-macros
     -Wno-padded
     -Wno-c23-extensions
+    -Wno-covered-switch-default
 )
 
 # TODO re-add this if we end up using more than just cunit and want to

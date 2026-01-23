@@ -24,6 +24,7 @@ static int parseLine(char *line, struct Battery **bank, size_t *size) {
 
   *size = line_length;
   *bank = (struct Battery *)malloc(sizeof(struct Battery) * *size);
+  exit_if(*bank == NULL, "Failed to allocate memory for battery bank\n");
 
   // NOLINTNEXTLINE(clang-analyzer-*): idk
   for (size_t i = 0; i < *size; i++) {
