@@ -40,7 +40,7 @@ static void it_can_push_a_long(void) {
   long *value = NULL;
 
   DA_alloc(&array);
-  value = (long*)malloc(sizeof(long));
+  value = (long *)malloc(sizeof(long));
   *value = 42;
 
   DA_push(array, value);
@@ -57,7 +57,7 @@ static void it_can_push_longs_up_to_allocated_amount(void) {
   DA_alloc(&array);
 
   for (long i = 0; i < DA_CHUNK_SIZE; i++) {
-    value = (long*)malloc(sizeof(long));
+    value = (long *)malloc(sizeof(long));
     *value = i;
     DA_push(array, value);
   }
@@ -77,7 +77,7 @@ static void it_can_push_longs_past_allocated_amount(void) {
   DA_alloc(&array);
 
   for (long i = 0; i < DA_CHUNK_SIZE * 5L; i++) {
-    value = (long*)malloc(sizeof(long));
+    value = (long *)malloc(sizeof(long));
     *value = i;
     DA_push(array, value);
   }
@@ -85,7 +85,7 @@ static void it_can_push_longs_past_allocated_amount(void) {
   CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE * 5L)
 
   for (long i = 0; i < DA_CHUNK_SIZE * 5L; i++) {
-    value = (long*)DA_get(array, (size_t)i);
+    value = (long *)DA_get(array, (size_t)i);
     CU_ASSERT_EQUAL(*value, i)
   }
 
@@ -98,7 +98,7 @@ static void it_can_clear(void) {
   DA_alloc(&array);
 
   for (long i = 0; i < DA_CHUNK_SIZE; i++) {
-    value = (long*)malloc(sizeof(long));
+    value = (long *)malloc(sizeof(long));
     *value = i;
     DA_push(array, value);
   }

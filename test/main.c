@@ -12,11 +12,8 @@
 
 int main(void) {
   int (*suite_definitions[])(void) = {
-      createDynamicArraysTestSuite,
-      day1CreateTestSuite,
-      day2CreateTestSuite,
-      day3CreateTestSuite,
-      day4CreateTestSuite,
+      createDynamicArraysTestSuite, day1CreateTestSuite, day2CreateTestSuite,
+      day3CreateTestSuite,          day4CreateTestSuite,
   };
   unsigned int failedCount;
 

@@ -9,7 +9,12 @@
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include <sys/types.h>
 
-enum { MAX_GRID_DIM = 200, PAPER_ROLL_SYMBOL = '@', MAX_NEIGHBOUR_COUNT = 4, MAX_ITERATIONS = 100 };
+enum {
+  MAX_GRID_DIM = 200,
+  PAPER_ROLL_SYMBOL = '@',
+  MAX_NEIGHBOUR_COUNT = 4,
+  MAX_ITERATIONS = 100
+};
 
 struct Grid {
   unsigned int width;
@@ -106,7 +111,7 @@ static long day4(char *inputFilePath, unsigned int iterations) {
         }
 
         if (countNeighbours(&world_grid, x, y) < MAX_NEIGHBOUR_COUNT) {
-          temp = (struct Point*)malloc(sizeof(struct Point));
+          temp = (struct Point *)malloc(sizeof(struct Point));
           temp->x = x;
           temp->y = y;
           DA_push(elements_to_remove, temp);
@@ -121,7 +126,7 @@ static long day4(char *inputFilePath, unsigned int iterations) {
     result += (long)DA_len(elements_to_remove);
 
     for (size_t i = 0; i < DA_len(elements_to_remove); i++) {
-      temp = (struct Point*)DA_get(elements_to_remove, i);
+      temp = (struct Point *)DA_get(elements_to_remove, i);
       world_grid.contents[temp->y][temp->x] = false;
     }
   }
@@ -131,9 +136,7 @@ static long day4(char *inputFilePath, unsigned int iterations) {
   return result;
 }
 
-long day4Part1(char *inputFilePath) {
-  return day4(inputFilePath, 1);
-}
+long day4Part1(char *inputFilePath) { return day4(inputFilePath, 1); }
 
 long day4Part2(char *inputFilePath) {
   return day4(inputFilePath, MAX_ITERATIONS);

@@ -73,7 +73,7 @@ static bool idIsValidForSegmentCount(char *current_id, size_t segmentCount) {
 static void pushFromValue(struct DynamicArray *array, long value) {
   long *temp = NULL;
 
-  temp = (long*)malloc(sizeof(long));
+  temp = (long *)malloc(sizeof(long));
   exit_if(temp == NULL, "Failed to allocate memory for invalid ID\n");
   *temp = value;
   DA_push(array, temp);

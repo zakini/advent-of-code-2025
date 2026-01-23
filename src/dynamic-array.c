@@ -17,8 +17,9 @@ void DA_alloc(struct DynamicArray **array) {
   *array = (struct DynamicArray *)malloc(sizeof(struct DynamicArray));
   (*array)->occupied = 0;
   (*array)->allocated = ALLOC_CHUNK_SIZE;
-  (*array)->data = (void**)malloc(ALLOC_CHUNK_SIZE * sizeof(void*));
-  exit_if((*array)->data == NULL, "Failed to allocate memory for dynamic array\n");
+  (*array)->data = (void **)malloc(ALLOC_CHUNK_SIZE * sizeof(void *));
+  exit_if((*array)->data == NULL,
+          "Failed to allocate memory for dynamic array\n");
 }
 
 static void DA_expand(struct DynamicArray *array) {
@@ -27,22 +28,22 @@ static void DA_expand(struct DynamicArray *array) {
   assert(array->occupied <= array->allocated);
 
   if (array->occupied >= array->allocated) {
-    temp = realloc((void*)array->data, (array->allocated + ALLOC_CHUNK_SIZE) *
-                                            sizeof(void*));
+    temp = realloc((void *)array->data,
+                   (array->allocated + ALLOC_CHUNK_SIZE) * sizeof(void *));
     exit_if(temp == NULL, "Failed to expand dynamic array");
-    array->data = (void**)temp;
+    array->data = (void **)temp;
     array->allocated += ALLOC_CHUNK_SIZE;
   }
 }
 
 void DA_free(struct DynamicArray **array) {
   DA_clear(*array);
-  free((void*)(*array)->data);
+  free((void *)(*array)->data);
   free(*array);
   *array = NULL;
 }
 
-void* DA_get(struct DynamicArray *array, size_t index) {
+void *DA_get(struct DynamicArray *array, size_t index) {
   return array->data[index];
 }
 
