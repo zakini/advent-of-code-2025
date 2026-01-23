@@ -11,17 +11,17 @@ static void it_can_allocate_and_free_empty_dynamic_array(void) {
   struct DynamicArray *array = NULL;
 
   DA_alloc(&array);
-  CU_ASSERT_PTR_NOT_NULL(array);
+  CU_ASSERT_PTR_NOT_NULL(array)
 
   DA_free(&array);
-  CU_ASSERT_PTR_NULL(array);
+  CU_ASSERT_PTR_NULL(array)
 }
 
 static void it_returns_null_pointer_when_getting_unused_index(void) {
   struct DynamicArray *array = NULL;
   DA_alloc(&array);
 
-  CU_ASSERT_PTR_NULL(DA_get(array, 42));
+  CU_ASSERT_PTR_NULL(DA_get(array, 42))
 
   DA_free(&array);
 }
@@ -30,22 +30,23 @@ static void it_returns_zero_length_for_empty_array(void) {
   struct DynamicArray *array = NULL;
   DA_alloc(&array);
 
-  CU_ASSERT_EQUAL(DA_len(array), 0);
+  CU_ASSERT_EQUAL(DA_len(array), 0)
 
   DA_free(&array);
 }
 
 static void it_can_push_a_long(void) {
-  long *value = (long*)malloc(sizeof(long));
-  *value = 42;
-
   struct DynamicArray *array = NULL;
+  long *value = NULL;
+
   DA_alloc(&array);
+  value = (long*)malloc(sizeof(long));
+  *value = 42;
 
   DA_push(array, value);
 
-  CU_ASSERT_EQUAL(DA_len(array), 1);
-  CU_ASSERT_EQUAL(*(long*)DA_get(array, 0), *value);
+  CU_ASSERT_EQUAL(DA_len(array), 1)
+  CU_ASSERT_EQUAL(*(long *)DA_get(array, 0), *value)
 
   DA_free(&array);
 }
@@ -61,10 +62,10 @@ static void it_can_push_longs_up_to_allocated_amount(void) {
     DA_push(array, value);
   }
 
-  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE);
+  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE)
 
   for (long i = 0; i < DA_CHUNK_SIZE; i++) {
-    CU_ASSERT_EQUAL(*(long*)DA_get(array, (size_t)i), i);
+    CU_ASSERT_EQUAL(*(long *)DA_get(array, (size_t)i), i)
   }
 
   DA_free(&array);
@@ -81,11 +82,11 @@ static void it_can_push_longs_past_allocated_amount(void) {
     DA_push(array, value);
   }
 
-  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE * 5L);
+  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE * 5L)
 
   for (long i = 0; i < DA_CHUNK_SIZE * 5L; i++) {
     value = (long*)DA_get(array, (size_t)i);
-    CU_ASSERT_EQUAL(*value, i);
+    CU_ASSERT_EQUAL(*value, i)
   }
 
   DA_free(&array);
@@ -102,11 +103,11 @@ static void it_can_clear(void) {
     DA_push(array, value);
   }
 
-  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE);
+  CU_ASSERT_EQUAL(DA_len(array), DA_CHUNK_SIZE)
 
   DA_clear(array);
 
-  CU_ASSERT_EQUAL(DA_len(array), 0);
+  CU_ASSERT_EQUAL(DA_len(array), 0)
 
   DA_free(&array);
 }

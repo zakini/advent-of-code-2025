@@ -14,6 +14,6 @@ size_t DA_len(struct DynamicArray *array);
 void DA_push(struct DynamicArray *array, void *value);
 void DA_clear(struct DynamicArray *array);
 
-void DA_debug(struct DynamicArray *array, void *printValue(size_t i, void *));
+void DA_debug(struct DynamicArray *array, void *printValue(size_t, void *));
 
 #endif
