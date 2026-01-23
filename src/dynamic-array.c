@@ -62,11 +62,11 @@ void DA_clear(struct DynamicArray *array) {
   array->occupied = 0;
 }
 
-void DA_debug(struct DynamicArray *array, void *printValue(void *)) {
+void DA_debug(struct DynamicArray *array, void *printValue(size_t i, void *)) {
   printf("Dynamic array - occupied: %zu, allocated: %zu\nContents:\n\n",
          array->occupied, array->allocated);
 
   for (size_t i = 0; i < array->occupied; i++) {
-    printValue(array->data[i]);
+    printValue(i, array->data[i]);
   }
 }
