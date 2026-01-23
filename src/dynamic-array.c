@@ -27,18 +27,19 @@ static void DA_expand(struct DynamicArray *array) {
   assert(array->occupied <= array->allocated);
 
   if (array->occupied >= array->allocated) {
-    temp = realloc(*(array->data), (array->allocated + ALLOC_CHUNK_SIZE) *
+    temp = realloc((void*)array->data, (array->allocated + ALLOC_CHUNK_SIZE) *
                                             sizeof(void*));
     exit_if(temp == NULL, "Failed to expand dynamic array");
-    *(array->data) = temp;
+    array->data = (void**)temp;
     array->allocated += ALLOC_CHUNK_SIZE;
   }
 }
 
-void DA_free(struct DynamicArray *array) {
-  DA_clear(array);
-  free((void*)array->data);
-  free(array);
+void DA_free(struct DynamicArray **array) {
+  DA_clear(*array);
+  free((void*)(*array)->data);
+  free(*array);
+  *array = NULL;
 }
 
 void* DA_get(struct DynamicArray *array, size_t index) {

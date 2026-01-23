@@ -97,7 +97,7 @@ static long day2(char inputFilePath[], size_t maxSegments) {
   if (file == NULL) {
     // NOLINTNEXTLINE(cert-err33-c) we're about to exit. If we can't print then we'll just have to exit silently
     fprintf(stderr, "Failed to open %s\n", inputFilePath);
-    DA_free(invalid_ids);
+    DA_free(&invalid_ids);
     exit(EXIT_FAILURE);
   }
 
@@ -127,7 +127,7 @@ static long day2(char inputFilePath[], size_t maxSegments) {
     input_number++;
   }
 
-  DA_free(invalid_ids);
+  DA_free(&invalid_ids);
 
   if (input_value != NULL) {
     free(input_value);

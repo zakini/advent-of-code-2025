@@ -55,6 +55,8 @@ target_sources(${PROJECT_NAME}test
         test/day3.c
         test/day4.h
         test/day4.c
+        test/dynamic-array.h
+        test/dynamic-array.c
 
         test/CUnit.h
         test/CUnit.c
