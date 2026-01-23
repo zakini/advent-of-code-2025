@@ -38,7 +38,7 @@ int main(void) {
                        {4,
                         {
                             {day4Part1, "data/day4/data.txt"},
-                            {notImplemented, ""},
+                            {day4Part2, "data/day4/data.txt"},
                         }}};
 
   for (size_t i = 0; i < sizeof(days) / sizeof(days[0]); i++) {

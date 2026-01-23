@@ -1,18 +1,25 @@
 #include "day4.h"
+#include "dynamic-array.h"
 #include "utils.h"
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include <sys/types.h>
 
-enum { MAX_GRID_DIM = 200, PAPER_ROLL_SYMBOL = '@', MAX_NEIGHBOUR_COUNT = 4 };
+enum { MAX_GRID_DIM = 200, PAPER_ROLL_SYMBOL = '@', MAX_NEIGHBOUR_COUNT = 4, MAX_ITERATIONS = 100 };
 
 struct Grid {
   unsigned int width;
   unsigned int height;
   bool contents[MAX_GRID_DIM][MAX_GRID_DIM];
+};
+
+struct Point {
+  int x;
+  int y;
 };
 
 static void parseFile(char *inputFilePath, struct Grid *worldGrid) {
@@ -76,26 +83,58 @@ static int countNeighbours(struct Grid *worldGrid, int centreX, int centreY) {
   return neighbour_count;
 }
 
-long day4Part1(char *inputFilePath) {
+static long day4(char *inputFilePath, unsigned int iterations) {
   struct Grid world_grid = {
       .width = 0,
       .height = 0,
   };
+  struct DynamicArray *elements_to_remove = NULL;
+  struct Point *temp = NULL;
   long result = 0;
+
+  DA_alloc(&elements_to_remove);
 
   parseFile(inputFilePath, &world_grid);
 
-  for (int y = 0; y < (int)world_grid.height; y++) {
-    for (int x = 0; x < (int)world_grid.width; x++) {
-      if (!world_grid.contents[y][x]) {
-        continue;
-      }
+  for (unsigned int _ = 0; _ < iterations; _++) {
+    DA_clear(elements_to_remove);
 
-      if (countNeighbours(&world_grid, x, y) < MAX_NEIGHBOUR_COUNT) {
-        result++;
+    for (int y = 0; y < (int)world_grid.height; y++) {
+      for (int x = 0; x < (int)world_grid.width; x++) {
+        if (!world_grid.contents[y][x]) {
+          continue;
+        }
+
+        if (countNeighbours(&world_grid, x, y) < MAX_NEIGHBOUR_COUNT) {
+          temp = (struct Point*)malloc(sizeof(struct Point));
+          temp->x = x;
+          temp->y = y;
+          DA_push(elements_to_remove, temp);
+        }
       }
+    }
+
+    if (DA_len(elements_to_remove) <= 0) {
+      break;
+    }
+
+    result += (long)DA_len(elements_to_remove);
+
+    for (size_t i = 0; i < DA_len(elements_to_remove); i++) {
+      temp = (struct Point*)DA_get(elements_to_remove, i);
+      world_grid.contents[temp->y][temp->x] = false;
     }
   }
 
+  DA_free(&elements_to_remove);
+
   return result;
+}
+
+long day4Part1(char *inputFilePath) {
+  return day4(inputFilePath, 1);
+}
+
+long day4Part2(char *inputFilePath) {
+  return day4(inputFilePath, MAX_ITERATIONS);
 }
